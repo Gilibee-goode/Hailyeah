@@ -69,6 +69,7 @@
                 {% for i in range(data.daily.time|length) %}
                     <div class="card">
                         <h4>{{ data.daily.time[i] }}</h4> <!-- Date -->
+                        <p>{{ weather_emojis[i] }}</p> <!-- weather emoji -->
                         <p>Max Temp: {{ data.daily.temperature_2m_max[i] }}°C</p> <!-- Max temperature -->
                         <p>Min Temp: {{ data.daily.temperature_2m_min[i] }}°C</p> <!-- Min temperature -->
                         <p>Humidity: {{ data.daily.relative_humidity_2m_mean[i] }}%</p> <!-- Humidity -->

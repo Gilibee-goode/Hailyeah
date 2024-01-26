@@ -52,8 +52,8 @@ def get_openmeteo_weather(lon_lat_dict):
     return response.json()# , response.status_code
 
 
-dd = get_lan_lon("Tokyo")
-print(dd)
+# dd = get_lan_lon("Tokyo")
+# print(dd)
 # rr = get_openmeteo_weather(dd)
 # print(rr)
 # print(type(rr))

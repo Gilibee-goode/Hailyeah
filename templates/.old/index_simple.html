@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <!-- You can add CSS here or link to an external stylesheet -->
+</head>
+<body>
+    <h1>Weather Forecast</h1>
+
+    <!-- Form for city input -->
+    <form action="/city" method="post">
+        <label for="city">Enter a city:</label>
+        <input type="text" id="city" name="city">
+        <button type="submit">Get Weather</button>
+    </form>
+
+    <!-- Display the weather data -->
+    {% if data %}
+        <h2>Weather in {{ city }}</h2>
+        <p><strong>Current Temperature:</strong> {{ data.current.temperature_2m }}°C</p>
+        <p><strong>Current Humidity:</strong> {{ data.daily.relative_humidity_2m_mean[0] }}%</p>
+
+        <h3>7-Day Forecast:</h3>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Max Temperature (°C)</th>
+                <th>Min Temperature (°C)</th>
+            </tr>
+            {% for i in range(data.daily.time|length) %}
+            <tr>
+                <td>{{ data.daily.time[i] }}</td>
+                <td>{{ data.daily.temperature_2m_max[i] }}</td>
+                <td>{{ data.daily.temperature_2m_min[i] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

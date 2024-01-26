@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        #weather-container {
+            margin: 0 auto;
+            width: 50%;
+        }
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 14%;
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            text-align: left;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="weather-container">
+        <h1>Weather Forecast</h1>
+
+        <!-- Form for city input -->
+        <form action="/city" method="post">
+            <label for="city">Enter a city:</label>
+            <input type="text" id="city" name="city">
+            <button type="submit">Get Weather</button>
+        </form>
+
+        <!-- Display the weather data -->
+        {% if data %}
+            <h2>Current Weather in {{ city }}</h2>
+            <p><strong>Temperature:</strong> {{ data.current.temperature_2m }}°C</p>
+            <p><strong>Humidity:</strong> {{ data.daily.relative_humidity_2m_mean[0] }}%</p>
+
+            <h3>7-Day Forecast:</h3>
+            <div>
+                {% for i in range(data.daily.time|length) %}
+                    <div class="card">
+                        <h4>{{ data.daily.time[i] }}</h4>
+                        <p>Max Temp: {{ data.daily.temperature_2m_max[i] }}°C</p>
+                        <p>Min Temp: {{ data.daily.temperature_2m_min[i] }}°C</p>
+                        <p>Humidity: {{ data.daily.relative_humidity_2m_mean[i] }}%</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

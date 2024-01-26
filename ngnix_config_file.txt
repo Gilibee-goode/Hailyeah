@@ -1,0 +1,18 @@
+# Rate limiting
+
+limit_req_zone $binary_remote_addr zone=applimit:10m rate=1r/s;
+
+ # Concurrent connections zone
+ 
+limit_conn_zone $binary_remote_addr zone=applimitaddr:10m;
+
+server {
+        listen 80;
+
+        # Serve app
+        location / {
+                limit_req zone=applimit; # Limit requests per second
+                limit_conn applimitaddr 5; # Limit concurrent requests
+                proxy_pass http://127.0.0.1:8000;
+        }
+} 

@@ -1,6 +1,6 @@
 # autor: Gili
 # reviewer: Itay
-# testing Jenkins
+# testing Jenkins2
 
 from flask import Flask, request, render_template
 from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather

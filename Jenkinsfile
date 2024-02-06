@@ -53,10 +53,10 @@ pipeline {
                 script {
                     // Define remote server SSH connection
                     def remote = [:]
-                    remote.name = "aws"
+                    remote.name = "ubuntu"
                     remote.host = "16.170.250.172"
                     remote.user = "ubuntu"
-                    remote.credentialsId = "AWS_ubuntu_ssh"
+                    remote.credentialsId = "aws-ssh-ubuntu"
                     remote.allowAnyHosts = true 
 
                     // Commands to pull and run your Docker container

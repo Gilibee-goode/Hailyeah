@@ -48,6 +48,29 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to AWS') {
+            steps {
+                script {
+                    // Define remote server SSH connection
+                    def remote = [:]
+                    remote.name = "aws"
+                    remote.host = "16.170.250.172"
+                    remote.user = "ubuntu"
+                    remote.credentialsId = "AWS_ubuntu_ssh"
+                    remote.allowAnyHosts = true 
+
+                    // Commands to pull and run your Docker container
+                    def deployCommands = """
+                        docker pull ${IMAGE_NAME}:${IMAGE_TAG} && \
+                        docker stop hailyeah || true && \
+                        docker run --name hailyeah -d ${IMAGE_NAME}:${IMAGE_TAG}
+                    """
+
+                    // Execute commands on the remote server
+                    sshCommand remote: remote, command: deployCommands
+                }
+            }
+        }
     }
    post {
         always {

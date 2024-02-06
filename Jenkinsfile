@@ -21,6 +21,7 @@ pipeline {
             steps {
                 // Build Docker image using Docker Pipeline plugin
                 script {
+                    sh 'echo "starting dorker image build"'
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
         	    docker.image('IMAGE_NAME:IMAGE_TAG').run('--name hailyeah -d -p 80:80')
                 }

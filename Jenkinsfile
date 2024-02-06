@@ -53,7 +53,7 @@ pipeline {
         always {
             // Clean up Docker images
             script {
-                sh 'docker kill ${IMAGE_NAME}'
+                sh 'docker kill hailyeah'
             }
         }
     }

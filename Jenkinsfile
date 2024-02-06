@@ -30,22 +30,22 @@ pipeline {
             steps {
                 // Run a container from the image and execute pytest
                 script {
-        	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d -p 80:80')
+        	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
                     dir('/home/jenkins/workspace/HailYeah_pipeline/API_Project') {
-                        // run pytest retrypush
+                        // run pytest retrypush2
                         sh 'pytest'        	    
                     }
                 }
             }
         }
     }
-//   post {
-//        always {
-//            // Clean up Docker images
-//            script {
-//                sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
-//            }
-//        }
-//    }
+   post {
+        always {
+            // Clean up Docker images
+            script {
+                sh 'docker kill ${IMAGE_NAME}'
+            }
+        }
+    }
 }
  

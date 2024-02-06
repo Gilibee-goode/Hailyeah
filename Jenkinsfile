@@ -38,6 +38,16 @@ pipeline {
                 }
             }
         }
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                    // Login and push to DockerHub using Docker Pipeline plugin
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push("${IMAGE_TAG}")
+                    }
+                }
+            }
+        }
     }
    post {
         always {

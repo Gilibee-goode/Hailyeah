@@ -22,11 +22,9 @@ pipeline {
                 // Build Docker image using Docker Pipeline plugin
                 script {
                     sh 'echo "starting dorker image build"'
-                    // retry5
-        	        sh 'docker run -d hello-world'
-                    docker.image('hello-world').run()
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-        	        docker.image('IMAGE_NAME:IMAGE_TAG').run('--name hailyeah -d -p 80:80')
+        	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d -p 80:80')
+
                 }
             }
         }

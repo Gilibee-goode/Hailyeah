@@ -32,7 +32,7 @@ pipeline {
                 script {
         	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d -p 80:80')
                     dir('/home/jenkins/workspace/HailYeah_pipeline/API_Project') {
-                        // run pytest
+                        // run pytest retrypush
                         sh 'pytest'        	    
                     }
                 }

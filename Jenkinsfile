@@ -23,11 +23,29 @@ pipeline {
                 script {
                     sh 'echo "starting dorker image build"'
                     docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                }
+            }
+        }
+        stage('Run Pytest in Container') {
+            steps {
+                // Run a container from the image and execute pytest
+                script {
         	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d -p 80:80')
-
+                    dir('/home/jenkins/workspace/HailYeah_pipeline/API_Project') {
+                        // run pytest
+                        sh 'pytest'        	    
+                    }
                 }
             }
         }
     }
+//   post {
+//        always {
+//            // Clean up Docker images
+//            script {
+//                sh "docker rmi ${IMAGE_NAME}:${IMAGE_TAG}"
+//            }
+//        }
+//    }
 }
  

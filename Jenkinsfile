@@ -3,8 +3,6 @@ pipeline {
     environment {
         // Define DockerHub credentials ID
         DOCKERHUB_CREDENTIALS_ID = 'GilibeeDocker'
-        // Define GitLab repository
-        //GIT_REPO_URL = 'your_gitlab_project_url'
         // Docker image name
         IMAGE_NAME = 'gilibee/hailyeah'
         // Docker tag

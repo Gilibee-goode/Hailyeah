@@ -7,7 +7,7 @@ pipeline {
         IMAGE_NAME = 'gilibee/hailyeah'
         // Docker tag
         IMAGE_TAG = 'latest'
-        // Deploy location
+        // Deploy location (Hailyeah server)
         DEPLOY_IP = 13.49.145.240
     }
     stages {

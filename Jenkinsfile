@@ -48,26 +48,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
+	stage('Deploy to AWS - sh') {
             steps {
-                script {
-                    // Define remote server SSH connection
-                    def remote = [:]
-                    remote.name = "ubuntu"
-                    remote.host = "${DEPLOY_IP}"
-                    remote.user = "ubuntu"
-                    remote.credentialsId = "aws-ssh-ubuntu"
-                    remote.allowAnyHosts = true 
-
-                    // Commands to pull and run your Docker container
-                    def deployCommands = """
-                        docker pull ${IMAGE_NAME}:${IMAGE_TAG} && \
-                        docker stop hailyeah || true && \
-                        docker run --name hailyeah -d ${IMAGE_NAME}:${IMAGE_TAG}
-                    """
-
-                    // Execute commands on the remote server
-                    sshCommand remote: remote, command: deployCommands
+                withCredentials([sshUserPrivateKey(credentialsId: 'aws-ssh-ubuntu', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+                    script {
+                        sh "ssh-keyscan -H ${DEPLOY_IP} >> ~/.ssh/known_hosts"
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
+                        //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker pull bensh99/simpleapp:latest"
+                        //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name weatherapp -p 80:80 -d bensh99/simpleapp"
+                    }
                 }
             }
         }

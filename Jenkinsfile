@@ -11,12 +11,6 @@ pipeline {
         DEPLOY_IP = '13.49.145.240'
     }
     stages {
-        stage('Checkout from GitLab') {
-            steps {
-                // Checkout code from GitLab
-                checkout scm
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 // Build Docker image using Docker Pipeline plugin
@@ -31,8 +25,8 @@ pipeline {
                 // Run a container from the image and execute pytest
                 script {
         	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
-                    dir('/home/jenkins/workspace/HailYeah_pipeline/API_Project') {
-                        // run pytest retrypush2
+                    dir('./API_Project') {
+                        // run pytest
                         sh 'pytest'        	    
                     }
                 }

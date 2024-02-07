@@ -2,14 +2,14 @@
 FROM ubuntu:latest AS build
 
 RUN apt update && apt install -y python3 python3-venv python3-pip
+RUN mkdir /API_Project
+WORKDIR /API_Project
 
 # create a venv to store all dependencies for the project
 RUN python3 -m venv .venv  
 
 #RUN ./.venv/bin/activate && pip install gunicorn Flask requests
 RUN . .venv/bin/activate && pip install gunicorn Flask requests
-
-WORKDIR /API_Project
 
 COPY API_Project /API_Project
 

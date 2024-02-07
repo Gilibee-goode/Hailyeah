@@ -55,7 +55,7 @@ pipeline {
                         sh "ssh-keyscan -H ${DEPLOY_IP} >> ~/.ssh/known_hosts"
                         //docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
                         //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker pull bensh99/simpleapp:latest"
-                        sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name hailyeah -p 80:80 -d "${IMAGE_NAME}:${IMAGE_TAG}""
+                        sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name hailyeah -p 80:80 -d ${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
             }

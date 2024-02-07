@@ -77,8 +77,7 @@ pipeline {
         failure {
             slackSend(channel: "#jenkins-updates", color: "bad", message: "Build #${env.BUILD_NUMBER} failed successfully!")
         }
-            }
-        }
     }
 }
+    
  

@@ -8,7 +8,7 @@ pipeline {
         // Docker tag
         IMAGE_TAG = 'latest'
         // Deploy location (Hailyeah server)
-        DEPLOY_IP = 13.49.145.240
+        DEPLOY_IP = '13.49.145.240'
     }
     stages {
         stage('Checkout from GitLab') {

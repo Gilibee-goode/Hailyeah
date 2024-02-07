@@ -56,7 +56,7 @@ pipeline {
                         //docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
                         //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker pull bensh99/simpleapp:latest"
                         sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker pull ${IMAGE_NAME}:${IMAGE_TAG}"
-                        sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker kill hailyeah"
+                        sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker kill hailyeah || true"
                         sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker container prune -f"
                         sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name hailyeah -p 80:80 -d ${IMAGE_NAME}:${IMAGE_TAG}"
                     }

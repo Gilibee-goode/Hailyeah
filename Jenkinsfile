@@ -24,6 +24,7 @@ pipeline {
             steps {
                 // Run a container from the image and execute pytest
                 script {
+                    sh 'docker images'
         	    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
                     dir('./API_Project') {
                         // run pytest
@@ -69,7 +70,7 @@ pipeline {
             slackSend(channel: "#jenkins-updates", color: "good", message: "Build #${env.BUILD_NUMBER} successful!")
         }
         failure {
-            slackSend(channel: "#jenkins-updates", color: "bad", message: "Build #${env.BUILD_NUMBER} failed successfully!")
+            slackSend(channel: "#jenkins-updates", color: "danger", message: "Build #${env.BUILD_NUMBER} failed successfully!")
         }
     }
 }

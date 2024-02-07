@@ -9,6 +9,8 @@ pipeline {
         IMAGE_NAME = 'gilibee/hailyeah'
         // Docker tag
         IMAGE_TAG = 'latest'
+        // Deploy location
+        DEPLOY_IP = 13.49.145.240
     }
     stages {
         stage('Checkout from GitLab') {
@@ -54,7 +56,7 @@ pipeline {
                     // Define remote server SSH connection
                     def remote = [:]
                     remote.name = "ubuntu"
-                    remote.host = "16.170.250.172"
+                    remote.host = ${DEPLOY_IP}
                     remote.user = "ubuntu"
                     remote.credentialsId = "aws-ssh-ubuntu"
                     remote.allowAnyHosts = true 

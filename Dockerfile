@@ -3,15 +3,15 @@ FROM ubuntu:latest AS build
 
 RUN apt update && apt install -y python3 python3-venv python3-pip
 
-COPY API_Project /API_Project
-
-WORKDIR /API_Project
-
 # create a venv to store all dependencies for the project
 RUN python3 -m venv .venv  
 
 #RUN ./.venv/bin/activate && pip install gunicorn Flask requests
 RUN . .venv/bin/activate && pip install gunicorn Flask requests
+
+WORKDIR /API_Project
+
+COPY API_Project /API_Project
 
 #RUN useradd -ms /bin/bash hailyeah
 
@@ -23,9 +23,9 @@ RUN . .venv/bin/activate && pip install gunicorn Flask requests
 
 FROM ubuntu
 
-COPY --from=build /API_Project /app
-
 RUN apt update -y && apt install -y nginx python3
+
+COPY --from=build /API_Project /app
 
 COPY API_Project/ngnix_config_file.conf /etc/nginx/sites-enabled/default
 

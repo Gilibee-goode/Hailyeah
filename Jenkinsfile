@@ -69,6 +69,14 @@ pipeline {
             // Clean up Docker images
             script {
                 sh 'docker kill hailyeah'
+                }
+            }
+        success {
+            slackSend(channel: "#jenkins-updates", color: "good", message: "Build #${env.BUILD_NUMBER} successful!")
+        }
+        failure {
+            slackSend(channel: "#jenkins-updates", color: "bad", message: "Build #${env.BUILD_NUMBER} failed successfully!")
+        }
             }
         }
     }

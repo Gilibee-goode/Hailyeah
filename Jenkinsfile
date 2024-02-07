@@ -53,9 +53,9 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'aws-ssh-ubuntu', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                     script {
                         sh "ssh-keyscan -H ${DEPLOY_IP} >> ~/.ssh/known_hosts"
-                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
+                        //docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run('--name hailyeah -d --rm -p 80:80')
                         //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker pull bensh99/simpleapp:latest"
-                        //sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name weatherapp -p 80:80 -d bensh99/simpleapp"
+                        sh "ssh -i ${SSH_PRIVATE_KEY} ubuntu@${DEPLOY_IP} docker run --rm --name hailyeah -p 80:80 -d "${IMAGE_NAME}:${IMAGE_TAG}""
                     }
                 }
             }

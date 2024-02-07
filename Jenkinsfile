@@ -54,7 +54,7 @@ pipeline {
                     // Define remote server SSH connection
                     def remote = [:]
                     remote.name = "ubuntu"
-                    remote.host = ${DEPLOY_IP}
+                    remote.host = "${DEPLOY_IP}"
                     remote.user = "ubuntu"
                     remote.credentialsId = "aws-ssh-ubuntu"
                     remote.allowAnyHosts = true 

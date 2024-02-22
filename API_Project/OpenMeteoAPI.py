@@ -3,6 +3,7 @@
 
 import requests
 import json
+import boto3
 
 
 def get_lan_lon(usr_input):
@@ -52,9 +53,65 @@ def get_openmeteo_weather(lon_lat_dict):
     return response.json()# , response.status_code
 
 
+# def dynamodb_push(city, data):
+#     # print("yolo")
+#     dynamodb = boto3.resource('dynamodb', region_name='eu-north-1')
+#     table = dynamodb.Table('WeatherData')
+#     response = table.put_item(Item={
+#         "city" : "MORDOR",
+#         "date" : "now"
+#     }
+#     )
+#     return response
+
+
+def dynamodb_push(items):
+    dynamodb = boto3.client('dynamodb', region_name='eu-north-1')
+
+    def convert_to_dynamodb_type(value):
+        if isinstance(value, list):
+            return {'L': [convert_to_dynamodb_type(item) for item in value]}
+        elif isinstance(value, int):
+            return {'N': str(value)}
+        elif isinstance(value, float):
+            return {'N': str(value)}
+        elif isinstance(value, bool):
+            return {'BOOL': value}
+        else:
+            return {'S': str(value)}
+
+    # print(items)
+    for key, value in items.items():
+        items[key] = convert_to_dynamodb_type(value)
+    # print("_----------------___-")
+    # print(items)
+    response = dynamodb.put_item(
+        TableName="WeatherData",
+        Item=items
+    )
+    return response
+
+
+def dynamodb_push_bkup(items):
+    dynamodb = boto3.client('dynamodb', region_name='eu-north-1')
+
+    def convert_to_dynamodb_type(value):
+            return {'S': str(value)}
+
+    print(items)
+    for key, value in items.items():
+        items[key] = convert_to_dynamodb_type(value)
+    # print("_----------------___-")
+    print(items)
+    response = dynamodb.put_item(
+        TableName="WeatherData",
+        Item=items
+    )
+    return response
 # dd = get_lan_lon("Tokyo")
 # print(dd)
 # rr = get_openmeteo_weather(dd)
 # print(rr)
-# print(type(rr))
+# print("---------")
+# print(rr["daily"]["time"])
 # print(sc)

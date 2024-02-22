@@ -7,7 +7,7 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #ffff00;
+            background-color: blue;
             color: white;
             /*background-color: lime; */
         }
@@ -78,6 +78,21 @@
                     </div>
                 {% endfor %}
             </div>
+
+        <form action="/save-data" method="post">
+            <input type="hidden" name="city" value="{{ city }}">
+            <input type="hidden" name="date" value="{{ data.daily.time }}">
+            <input type="hidden" name="weather_emojis" value="{{ weather_emojis }}">
+            <input type="hidden" name="DailyTempMax" value="{{ data.daily.temperature_2m_max }}">
+            <input type="hidden" name="DailyTempMin" value="{{ data.daily.temperature_2m_min }}">
+            <input type="hidden" name="DailyHumidity" value="{{ data.daily.relative_humidity_2m_mean }}">
+            <button type="submit">Save weekly data to DynamoDB</button>
+        </form>
+
+        <!-- Download Button for the Image -->
+        <button onclick="window.location.href='/download-image'">Download Sky View Image</button>
+        <!-- <button onclick="window.location.href='/sava-data'">Save weekly data to DynamoDB</button> -->
+
         {% endif %}
     </div>
 </body>

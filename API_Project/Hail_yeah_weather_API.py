@@ -2,8 +2,12 @@
 # reviewer: Itay
 # testing Jenkins3
 
-from flask import Flask, request, render_template
-from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather
+from flask import Flask, request, render_template, Response, stream_with_context
+from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather, dynamodb_push, dynamodb_push_bkup
+import requests
+
+from flask import jsonify, redirect, url_for
+import json
 
 def get_weather_mood_emoji(weather_code):
     # Mapping WMO weather codes to emojis based on detailed categories
@@ -79,6 +83,97 @@ def get_weather():
 
     else:
         return render_template("index.html")
+
+
+@hailyeah.route('/download-image')
+def download_image():
+    image_url = 'https://kick-da-bucket.s3.eu-north-1.amazonaws.com/lovely_sky_view.jpg'
+
+    req = requests.get(image_url, stream=True)
+
+    def generate():
+        for chunk in req.iter_content(chunk_size=1024):
+            yield chunk
+
+    return Response(stream_with_context(generate()),
+                    content_type=req.headers['Content-Type'],
+                    headers={"Content-Disposition":
+                                 "attachment; filename=lovely_sky_view.jpg"})
+
+
+
+
+@hailyeah.route('/save-data', methods=['POST'])
+def save_data():
+    city = request.form.get('city')
+    date = request.form.get('date')
+    weather_emojis = request.form.get('weather_emojis')
+    DailyTempMax = request.form.get('DailyTempMax')
+    DailyTempMin = request.form.get('DailyTempMin')
+    DailyHumidity = request.form.get('DailyHumidity')
+
+    # print("in save data")
+    # print(date)
+
+    items = {
+        "city":city,
+        "date":date,
+        "weather_emojis": weather_emojis,
+        "DailyTempMax": DailyTempMax,
+        "DailyTempMin": DailyTempMin,
+        "DailyHumidity": DailyHumidity
+    }
+
+    # print(items)
+    dynamodb_push(items)
+    return render_template("index.html")
+    # return redirect(url_for('index'))  # Redirect back to the main page
+
+
+
+@hailyeah.route('/bkup_db', methods=("GET", "POST"))
+def bkup_db():
+    city = "Tel Aviv"
+    coords = get_lan_lon(city)
+    data = get_openmeteo_weather(coords)
+
+    if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
+        weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is part of the returned data
+        weather_emojis = [get_weather_mood_emoji(i) for i in weather_code]
+
+
+    city = "Tel Aviv"
+    date = data["daily"]["time"]
+    weather_emojis = weather_emojis
+    DailyTempMax = data["daily"]["temperature_2m_max"]
+    DailyTempMin = data["daily"]["temperature_2m_min"]
+    DailyHumidity = data["daily"]["relative_humidity_2m_mean"]
+
+    # print("in bkup db")
+    # print(date)
+
+
+    items = {
+        "city": city,
+        "date": date,
+        "weather_emojis": weather_emojis,
+        "DailyTempMax": DailyTempMax,
+        "DailyTempMin": DailyTempMin,
+        "DailyHumidity": DailyHumidity
+    }
+
+    # print(items)
+
+    dynamodb_push_bkup(items)
+    return render_template("index.html")
+    # return redirect(url_for('index'))  # Redirect back to the main page
+
+
+# @hailyeah.route('/sava-data', methods=["GET"])
+# def save_data():
+#     return dynamodb_push()
+
+
 
 
 if __name__ == "__main__":

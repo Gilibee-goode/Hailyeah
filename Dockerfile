@@ -9,7 +9,7 @@ WORKDIR /API_Project
 RUN python3 -m venv .venv  
 
 #RUN ./.venv/bin/activate && pip install gunicorn Flask requests
-RUN . .venv/bin/activate && pip install gunicorn Flask requests
+RUN . .venv/bin/activate && pip install gunicorn Flask requests boto3
 
 COPY API_Project /API_Project
 
@@ -23,7 +23,7 @@ COPY API_Project /API_Project
 
 FROM ubuntu
 
-RUN apt update -y && apt install -y nginx python3
+RUN apt update -y && apt install -y nginx python3 
 
 COPY --from=build /API_Project /app
 

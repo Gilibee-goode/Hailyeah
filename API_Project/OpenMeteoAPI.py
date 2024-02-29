@@ -21,6 +21,7 @@ def get_lan_lon(usr_input):
     # print(r.text)
     # print(type(r.text))
     lonlat_dict = json.loads(r.text)
+    # print(lonlat_dict)
     lat = lonlat_dict.get("results")[0].get("latitude")
     lon = lonlat_dict.get("results")[0].get("longitude")
     city = lonlat_dict.get("results")[0].get("name")

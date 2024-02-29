@@ -9,7 +9,7 @@ WORKDIR /API_Project
 RUN python3 -m venv .venv  
 
 #RUN ./.venv/bin/activate && pip install gunicorn Flask requests
-RUN . .venv/bin/activate && pip install gunicorn Flask requests boto3
+RUN . .venv/bin/activate && pip install gunicorn Flask requests boto3 prometheus_flask_exporter
 
 COPY API_Project /API_Project
 

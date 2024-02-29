@@ -2,12 +2,14 @@
 # reviewer: Itay
 # testing Jenkins3
 
-from flask import Flask, request, render_template, Response, stream_with_context
+from flask import Flask, request, render_template, Response, stream_with_context, jsonify, redirect, url_for
 from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather, dynamodb_push, dynamodb_push_bkup
+# from prometheus_client import start_http_server, Counter, Histogram, Summary
+from prometheus_flask_exporter import PrometheusMetrics
+# from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 import requests
-
-from flask import jsonify, redirect, url_for
 import json
+
 
 def get_weather_mood_emoji(weather_code):
     # Mapping WMO weather codes to emojis based on detailed categories
@@ -59,6 +61,14 @@ def get_weather_mood_emoji(weather_code):
 
 
 hailyeah = Flask(__name__)
+metrics = PrometheusMetrics(hailyeah)
+# metrics = GunicornPrometheusMetrics(hailyeah)
+
+metrics.info('app_info', 'Hailyeah web app metrics')  # static metric
+
+city = None
+city_query_counter = metrics.counter(
+    'city_queries', 'Number of queries by city', labels={'city': lambda: city})
 
 
 @hailyeah.route('/', methods=["GET", "POST"])
@@ -69,15 +79,25 @@ def index():
 @hailyeah.route("/city", methods=("GET", "POST"))
 def get_weather():
     if request.method == "POST":
+        global city
         city = request.form["city"]
-        coords = get_lan_lon(city)
+
+        try:  # No city match returns to homepage
+            coords = get_lan_lon(city)
+        except Exception as e:
+            return render_template("index.html")
+
         data = get_openmeteo_weather(coords)
         # print(data.get("error", 0))
         if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
             weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is part of the returned data
             weather_emojis = [get_weather_mood_emoji(i) for i in weather_code]
+            city = coords.get("city", "FAILED")
+            @city_query_counter
+            def return_render():
+                return render_template("index.html", city=city, coords=coords, data=data, weather_emojis=weather_emojis)
+            return return_render()
 
-            return render_template("index.html", city=coords.get("city", "FAILED"), coords=coords, data=data, weather_emojis=weather_emojis)
         else:  # if there is an error
             return render_template("index.html")
 
@@ -169,14 +189,9 @@ def bkup_db():
     # return redirect(url_for('index'))  # Redirect back to the main page
 
 
-# @hailyeah.route('/sava-data', methods=["GET"])
-# def save_data():
-#     return dynamodb_push()
-
-
-
 
 if __name__ == "__main__":
+    # start_http_server(8001)  # Start Prometheus metrics server on port 8001
     hailyeah.run(host="0.0.0.0")
 
     # city = request.form["city"]

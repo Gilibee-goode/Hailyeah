@@ -83,7 +83,9 @@ jobs:
           export ANSIBLE_HOST_KEY_CHECKING=False
           echo "Hailyeah ansible_host=16.171.25.204 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" > hosts_github
           ansible-playbook ./Ansible/ansible_deploy.yml -i hosts_github
-"      
-        
-        
-        
+          
+          
+          
+          
+          
+          

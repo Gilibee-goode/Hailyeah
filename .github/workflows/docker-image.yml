@@ -52,6 +52,14 @@ jobs:
     needs: [build]
 
     steps:
+      - name: Checkout Ansible playbook
+        uses: actions/checkout@v4
+		with:
+		  sparse-checkout: |
+			Ansible/ansible_deploy.yml
+		  sparse-checkout-cone-mode: false
+    
+    
       - name: Install and configure aws cli
         uses: unfor19/install-aws-cli-action@v1
         with:
@@ -67,10 +75,10 @@ jobs:
         run: |
           echo "Deployment_Servers=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=HailYeah_Deploy" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)" >> $GITHUB_ENV
 
-      - name: Download ansible artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ansible_deploy
+#      - name: Download ansible artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: ansible_deploy
 
       - name: Output SSH key to file
         run: |
@@ -80,6 +88,8 @@ jobs:
 
       - name: Deploy via ansible
         run: |
+          pwd
+          ls
           export ANSIBLE_HOST_KEY_CHECKING=False
           echo "Hailyeah ansible_host=16.171.25.204 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa" > hosts_github
           ansible-playbook ./Ansible/ansible_deploy.yml -i hosts_github

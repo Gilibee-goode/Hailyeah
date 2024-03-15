@@ -27,9 +27,10 @@ jobs:
 
 
       - name: Build image
-        working-directory: /home/runner/work/
+        # working-directory: /home/runner/work/
         
         run: |
+          pwd
           docker build -t gilibee/hailyeah:latest .
 
 

@@ -1,0 +1,29 @@
+- name: Deploy web app via Docker container
+  hosts: all
+  become: yes  
+
+  tasks:
+    - name: Install Docker
+      ansible.builtin.package:
+        name: docker
+        state: present
+
+    - name: Pull Docker image
+      community.docker.docker_image:
+        name: "gilibee/hailyeah:latest"
+        source: pull
+
+    - name: Stop previous Docker container
+      community.docker.docker_container:
+        name: hailyeah_app
+        state: absent
+
+    - name: Launch the new Docker container
+      community.docker.docker_container:
+        name: hailyeah_app
+        image: "gilibee/hailyeah:latest"
+        state: started
+        ports:
+          - "80:80" 
+        restart_policy: always
+ 

@@ -26,5 +26,7 @@
         state: started
         ports:
           - "80:80" 
+        volumes:
+          - hailyeah-logs:/app/logs
         restart_policy: always
  

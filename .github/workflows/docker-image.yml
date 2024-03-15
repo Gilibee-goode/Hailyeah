@@ -54,10 +54,10 @@ jobs:
     steps:
       - name: Checkout Ansible playbook
         uses: actions/checkout@v4
-		with:
-		  sparse-checkout: |
-			Ansible/ansible_deploy.yml
-		  sparse-checkout-cone-mode: false
+        with:
+          sparse-checkout: |
+            Ansible/ansible_deploy.yml
+        sparse-checkout-cone-mode: false
     
     
       - name: Install and configure aws cli

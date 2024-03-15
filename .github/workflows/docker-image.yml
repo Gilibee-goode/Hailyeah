@@ -65,12 +65,12 @@ jobs:
 
       - name: get deployment servers
         run: |
-          echo "Deployment_Servers=$(aws ec2 describe-instances --filters "Name=HailYeah_Deploy" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)" >> $GITHUB_ENV
+          echo "Deployment_Servers=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=HailYeah_Deploy" --query "Reservations[*].Instances[*].PublicIpAddress" --output text)" >> $GITHUB_ENV
 
-      - name: Download ansible artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ansible-deployment
+#      - name: Download ansible artifact
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: ansible-deployment
 
       - name: Output SSH key to file
         run: |

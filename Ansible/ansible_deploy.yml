@@ -16,12 +16,12 @@
 
     - name: Stop previous Docker container
       community.docker.docker_container:
-        name: hailyeah_app
+        name: hailyeah_app80
         state: absent
 
     - name: Launch the new Docker container
       community.docker.docker_container:
-        name: hailyeah_app
+        name: hailyeah_app80
         image: "gilibee/hailyeah:latest"
         state: started
         ports:

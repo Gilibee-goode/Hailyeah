@@ -27,7 +27,7 @@ jobs:
 
 
       - name: Build image
-        working-directory: /home/runner/work/Python
+        working-directory: /home/runner/work/
         
         run: |
           docker build -t gilibee/hailyeah:latest .
@@ -35,7 +35,7 @@ jobs:
 
 
 #      - name: test image
-#        working-directory: /home/runner/work/Python
+#        working-directory: /home/runner/work/
 #        run: |
 #          docker run -p 80:80 --rm --name hailyeah -d gilibee/hailyeah:latest
 #          python3 test_reachable.py

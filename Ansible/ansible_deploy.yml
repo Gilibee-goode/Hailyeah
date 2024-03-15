@@ -12,6 +12,7 @@
       community.docker.docker_image:
         name: "gilibee/hailyeah:latest"
         source: pull
+        force_source: yes
 
     - name: Stop previous Docker container
       community.docker.docker_container:

@@ -27,10 +27,12 @@ RUN apt update -y && apt install -y nginx python3
 
 COPY --from=build /API_Project /app
 
+COPY API_Project/ngnix_config_file.conf /etc/nginx/sites-enabled/default
 
-COPY run_gunicorn.sh /app/run_gunicorn.sh 
+COPY initiate_ngnix.sh /app/initiate_ngnix.sh 
 
+RUN chmod 544 /app/initiate_ngnix.sh 
 WORKDIR /app
-CMD ["bash", "run_gunicorn.sh"]
+CMD ["bash", "initiate_ngnix.sh"]
 
 

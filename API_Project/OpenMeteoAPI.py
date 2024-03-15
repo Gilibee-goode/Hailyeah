@@ -5,6 +5,54 @@ import requests
 import json
 import boto3
 
+def get_weather_mood_emoji(weather_code):
+    # Mapping WMO weather codes to emojis based on detailed categories
+    code_to_emoji = {
+        range(0, 4): "🌤️",   # Cloud development and visibility changes
+        4: "🌫️",             # Smoke
+        5: "🌫️",             # Haze
+        6: "💨",             # Dust in suspension
+        7: "🌪️",             # Dust or sand raised by wind
+        8: "🌪️",             # Well developed dust/sand whirls
+        9: "🌪️",             # Duststorm or sandstorm
+        10: "🌫️",            # Mist
+        11: "🌫️",            # Shallow fog or ice fog
+        12: "🌫️",            # Continuous fog or ice fog
+        13: "⚡",             # Lightning
+        14: "🌧️",            # Precipitation not reaching ground
+        15: "🌧️",            # Precipitation distant
+        16: "🌧️",            # Precipitation nearby
+        17: "⛈️",            # Thunderstorm, no precipitation
+        18: "💨",            # Squalls
+        19: "🌪️",            # Funnel cloud(s)
+        20: "💧",            # Drizzle or snow grains
+        21: "🌧️",            # Rain
+        22: "❄️",            # Snow
+        23: "🌨️",            # Rain and snow or ice pellets
+        24: "🌧️",            # Freezing drizzle/rain
+        25: "🌦️",            # Shower(s) of rain
+        26: "🌨️",            # Shower(s) of snow
+        27: "⛈️",            # Shower(s) of hail
+        28: "🌫️",            # Fog or ice fog
+        29: "⛈️",            # Thunderstorm
+        range(30, 40): "🌪️", # Dust/sand storms, blowing snow
+        range(40, 50): "🌫️", # Fog or ice fog
+        range(50, 60): "💧",  # Drizzle
+        range(60, 70): "🌧️",  # Rain
+        range(70, 80): "❄️",  # Solid precipitation not in showers
+        range(80, 100): "🌦️", # Showery precipitation, thunderstorms
+    }
+
+    for code_range, emoji in code_to_emoji.items():
+        if isinstance(code_range, range):
+            if weather_code in code_range:
+                return emoji
+        elif weather_code == code_range:
+            return emoji
+
+    # Default emoji if no specific weather code matches
+    return "🌈"
+
 
 def get_lan_lon(usr_input):
     # usr_input = "Honolulu"
@@ -109,10 +157,13 @@ def dynamodb_push_bkup(items):
         Item=items
     )
     return response
-# dd = get_lan_lon("Tokyo")
-# print(dd)
-# rr = get_openmeteo_weather(dd)
-# print(rr)
-# print("---------")
-# print(rr["daily"]["time"])
-# print(sc)
+
+
+if __name__ == "__main__":
+    dd = get_lan_lon("Tokyo")
+    print(dd)
+    rr = get_openmeteo_weather(dd)
+    print(rr)
+    # print("---------")
+    # print(rr["daily"]["time"])
+    # print(sc)

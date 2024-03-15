@@ -3,64 +3,18 @@
 # testing Jenkins3
 
 from flask import Flask, request, render_template, Response, stream_with_context, jsonify, redirect, url_for
-from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather, dynamodb_push, dynamodb_push_bkup
+from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather, dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji
 # from prometheus_client import start_http_server, Counter, Histogram, Summary
 from prometheus_flask_exporter import PrometheusMetrics
 # from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 import requests
 import json
-
-
-def get_weather_mood_emoji(weather_code):
-    # Mapping WMO weather codes to emojis based on detailed categories
-    code_to_emoji = {
-        range(0, 4): "🌤️",   # Cloud development and visibility changes
-        4: "🌫️",             # Smoke
-        5: "🌫️",             # Haze
-        6: "💨",             # Dust in suspension
-        7: "🌪️",             # Dust or sand raised by wind
-        8: "🌪️",             # Well developed dust/sand whirls
-        9: "🌪️",             # Duststorm or sandstorm
-        10: "🌫️",            # Mist
-        11: "🌫️",            # Shallow fog or ice fog
-        12: "🌫️",            # Continuous fog or ice fog
-        13: "⚡",             # Lightning
-        14: "🌧️",            # Precipitation not reaching ground
-        15: "🌧️",            # Precipitation distant
-        16: "🌧️",            # Precipitation nearby
-        17: "⛈️",            # Thunderstorm, no precipitation
-        18: "💨",            # Squalls
-        19: "🌪️",            # Funnel cloud(s)
-        20: "💧",            # Drizzle or snow grains
-        21: "🌧️",            # Rain
-        22: "❄️",            # Snow
-        23: "🌨️",            # Rain and snow or ice pellets
-        24: "🌧️",            # Freezing drizzle/rain
-        25: "🌦️",            # Shower(s) of rain
-        26: "🌨️",            # Shower(s) of snow
-        27: "⛈️",            # Shower(s) of hail
-        28: "🌫️",            # Fog or ice fog
-        29: "⛈️",            # Thunderstorm
-        range(30, 40): "🌪️", # Dust/sand storms, blowing snow
-        range(40, 50): "🌫️", # Fog or ice fog
-        range(50, 60): "💧",  # Drizzle
-        range(60, 70): "🌧️",  # Rain
-        range(70, 80): "❄️",  # Solid precipitation not in showers
-        range(80, 100): "🌦️", # Showery precipitation, thunderstorms
-    }
-
-    for code_range, emoji in code_to_emoji.items():
-        if isinstance(code_range, range):
-            if weather_code in code_range:
-                return emoji
-        elif weather_code == code_range:
-            return emoji
-
-    # Default emoji if no specific weather code matches
-    return "🌈"
+import logging
 
 
 hailyeah = Flask(__name__)
+
+# ----- Setting up metrics for Prometheus ------
 metrics = PrometheusMetrics(hailyeah)
 # metrics = GunicornPrometheusMetrics(hailyeah)
 
@@ -71,6 +25,12 @@ city_query_counter = metrics.counter(
     'city_queries', 'Number of queries by city', labels={'city': lambda: city})
 
 
+# ----- Setting up logging ------
+logging.basicConfig(level=logging.INFO, filename='./logs/weather_app.log', filemode='a',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
+
+# ----- Pages ------
 @hailyeah.route('/', methods=["GET", "POST"])
 def index():
     return render_template('index.html')
@@ -79,29 +39,45 @@ def index():
 @hailyeah.route("/city", methods=("GET", "POST"))
 def get_weather():
     if request.method == "POST":
-        global city
+        global city  # to allow the @city_query_counter to register it as a metric
         city = request.form["city"]
+
+        # Log the attempt to query weather for a city
+        logging.info(f"Received POST request to query weather for city: {city}")
 
         try:  # No city match returns to homepage
             coords = get_lan_lon(city)
+            # Log successful retrieval of coordinates
+            logging.info(f"Successfully retrieved coordinates for city: {city} -> {coords}")
+
         except Exception as e:
+            # Log the exception when city coordinates cannot be fetched
+            logging.error(f"Failed to retrieve coordinates for city: {city}. Error: {e}", exc_info=True)
             return render_template("index.html")
 
         data = get_openmeteo_weather(coords)
-        # print(data.get("error", 0))
         if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
             weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is part of the returned data
             weather_emojis = [get_weather_mood_emoji(i) for i in weather_code]
             city = coords.get("city", "FAILED")
+
+            # Log the successful retrieval of weather data
+            logging.info(f"Successfully retrieved weather data for city: {city}")
+
             @city_query_counter
             def return_render():
                 return render_template("index.html", city=city, coords=coords, data=data, weather_emojis=weather_emojis)
             return return_render()
 
-        else:  # if there is an error
+        else:  # if there is a problem which did not result in data.get("error") == True
+
+            # Log the occurrence of an error in fetching weather data
+            logging.warning(f"Unknown error fetching weather data for city: {city}. Data: {data}")
             return render_template("index.html")
 
     else:
+        # Log the receipt of a GET request to the city endpoint
+        logging.info("Received GET request to '/city' endpoint - returned to '/'.")
         return render_template("index.html")
 
 
@@ -119,9 +95,6 @@ def download_image():
                     content_type=req.headers['Content-Type'],
                     headers={"Content-Disposition":
                                  "attachment; filename=lovely_sky_view.jpg"})
-
-
-
 
 @hailyeah.route('/save-data', methods=['POST'])
 def save_data():
@@ -148,8 +121,6 @@ def save_data():
     dynamodb_push(items)
     return render_template("index.html")
     # return redirect(url_for('index'))  # Redirect back to the main page
-
-
 
 @hailyeah.route('/bkup_db', methods=("GET", "POST"))
 def bkup_db():
@@ -193,6 +164,10 @@ def bkup_db():
 if __name__ == "__main__":
     # start_http_server(8001)  # Start Prometheus metrics server on port 8001
     hailyeah.run(host="0.0.0.0")
+
+    # # ----- Setting up logging ------
+    # logging.basicConfig(level=logging.INFO, filename='weather_app.log', filemode='a',
+    #                     format='%(asctime)s - %(levelname)s - %(message)s')
 
     # city = request.form["city"]
     # city = "rio de janeiro"

@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  hailyeah:
+    image: gilibee/hailyeah:latest
+    ports:
+      - "80:80"
+    volumes:
+      - hailyeah-logs:/app/logs
+    restart: always
+    
+volumes:
+  hailyeah-logs:

@@ -142,6 +142,15 @@ jobs:
           echo "${{secrets.DEPLOYMENT_SSH_KEY}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+
+
+      - name: cosign-installer
+        uses: sigstore/cosign-installer@v3.4.0
+        
+      - name: Check image signature
+        run: |
+          cosign verify --key ./cosign/cosign.pub docker.io/gilibee/hailyeah:latest
+
       - name: Deploy via ansible
         run: |
           pwd

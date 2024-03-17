@@ -84,12 +84,12 @@ jobs:
         
         
       - name: sign container image
-        run: |
-            cosign sign --key env://COSIGN_KEY docker.io/gilibee/hailyeah:latest
         shell: bash
         env:
-          COSIGN_KEY: ${{secrets.COSIGN_KEY}}
+          COSIGN_KEY: ${{secrets.COSIGN_PRIVATE_KEY}}
           COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
+        run: cosign sign --key env://COSIGN_PRIVATE_KEY docker.io/gilibee/hailyeah:latest
+
           
 
       - name: Check images signature

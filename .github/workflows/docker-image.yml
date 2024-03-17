@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-         #cat requirements.txt | xargs -n 1 pip install || true
+         #pip install -r requirements.txt
+          cat requirements.txt | xargs -n 1 pip install || true
       
       - name: Run Snyk to check for Python modules vulnerabilities
         uses: snyk/actions/python-3.8@master
@@ -72,7 +72,7 @@ jobs:
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          image: gilibee/hailyeah:latest
+          image: gilibee/hailyeah
           tags: latest
           registry: docker.io
           username: ${{ secrets.DOCKERHUB_USERNAME }}

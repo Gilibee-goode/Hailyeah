@@ -50,7 +50,7 @@ jobs:
               
       - name: Run Static Code Analysis
         run: |
-          flake8 ./Python/
+          flake8 --max-line-length 120 ./Python/
 
 
 

@@ -57,7 +57,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    needs: [snyk-python]
+    needs: [snyk-python-docker-lint]
 
     steps:
       - name: Checkout

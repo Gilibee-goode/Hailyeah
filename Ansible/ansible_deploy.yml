@@ -34,7 +34,7 @@
     - name: Run Cosign Verify
       shell: |
         pwd
-        cosign-linux-amd64 verify --key cosign.pub gilibee/hailyeah:latest
+        cd /home/ubuntu && cosign verify --key cosign.pub gilibee/hailyeah:latest
 
     - name: Stop previous Docker container
       community.docker.docker_container:

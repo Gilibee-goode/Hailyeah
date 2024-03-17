@@ -71,27 +71,39 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
 
-      - name: Build image
-        # working-directory: /home/runner/work/
-        
-        run: |
-          pwd
-          docker build -t gilibee/hailyeah:latest .
-
-
-      - name: Save ansible to cache
-        uses: actions/upload-artifact@v4
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v6
         with:
-          name: ansible-deployment
-          path: /home/runner/work/Ansible/*
+          image: gilibee/hailyeah:latest
+          #tags: ${{ steps.AutoTagger.outputs.new_tag }}
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          
+          
+      - name: cosign-installer
+        uses: sigstore/cosign-installer@v3.4.0
+        
+        
+      - name: sign container image
+        run: |
+            cosign sign --key env://COSIGN_KEY docker.io/gilibee/hailyeah:latest
+        shell: bash
+        env:
+          COSIGN_KEY: ${{secrets.COSIGN_KEY}}
+          COSIGN_PASSWORD: ${{secrets.COSIGN_PASSWORD}}
+          
 
-
-      - name: Push image to Dockerhub
-        run: docker push gilibee/hailyeah:latest
+      - name: Check images signature
+        run: |
+          docker buildx imagetools inspect docker.io/gilibee/hailyeah:latest
+          docker pull docker.io/gilibee/hailyeah:latest
+          cosign verify --key cosign.pub docker.io/gilibee/hailyeah:latest
         
         
 

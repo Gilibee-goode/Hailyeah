@@ -27,13 +27,20 @@ jobs:
           python -m pip install --upgrade pip
           cat requirements.txt | xargs -n 1 pip install || true
       
-      - name: Run Snyk to check for vulnerabilities
+      - name: Run Snyk to check for Python modules vulnerabilities
         uses: snyk/actions/python-3.8@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=critical
 
+      - name: Run Snyk to check Docker images for vulnerabilities
+        uses: snyk/actions/docker@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: gilibee/hailyeah:latest
+          args: --file=Dockerfile --severity-threshold=high
 
 
   build:

@@ -13,9 +13,6 @@ cffi==1.16.0
 cfgv==3.4.0
 charset-normalizer==3.3.2
 click==8.1.7
-conda-package-handling==2.2.0
-conda_package_streaming==0.9.0
-conda-verify==3.4.2
 constantly==15.1.0
 cssselect==1.1.0
 Flask==2.2.5

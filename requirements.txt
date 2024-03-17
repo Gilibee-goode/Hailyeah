@@ -1,44 +1,59 @@
 appdirs==1.4.4
 atomicwrites==1.4.0
 attrs==23.2.0
+backports.functools-lru-cache==1.6.4
+backports.tempfile==1.0
 backports.weakref==1.0.post1
-boto3 @ file:///work/perseverance-python-buildout/croot/boto3_1701749406590/work
-botocore @ file:///work/perseverance-python-buildout/croot/botocore_1701735953260/work
-Brotli @ file:///work/perseverance-python-buildout/croot/brotli-split_1698805593785/work
+boto3==1.29.1
+botocore==1.32.1
+Brotli==1.0.9
 cattrs==23.2.3
 certifi==2023.11.17
+cffi==1.16.0
+cfgv==3.4.0
 charset-normalizer==3.3.2
-click @ file:///work/perseverance-python-buildout/croot/click_1698845879718/work
-Flask @ file:///croot/flask_1702980023242/work
+click==8.1.7
+conda-package-handling==2.2.0
+conda_package_streaming==0.9.0
+conda-verify==3.4.2
+constantly==15.1.0
+cssselect==1.1.0
+Flask==2.2.5
 flatbuffers==23.5.26
+future==0.18.3
 idna==3.6
-iniconfig @ file:///home/linux1/recipes/ci/iniconfig_1610983019677/work
-itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
-Jinja2 @ file:///work/perseverance-python-buildout/croot/jinja2_1698847462642/work
-jmespath @ file:///work/perseverance-python-buildout/croot/jmespath_1701734034266/work
-MarkupSafe @ file:///work/perseverance-python-buildout/croot/markupsafe_1698846636000/work
+iniconfig==1.1.1
+itsdangerous==2.0.1
+Jinja2==3.1.2
+jmespath==1.0.1
+MarkupSafe==2.1.1
 numpy==1.26.3
 openmeteo_requests==1.1.0
 openmeteo_sdk==1.7.1
-packaging @ file:///work/perseverance-python-buildout/croot/packaging_1698805390494/work
+packaging==23.1
 pandas==2.1.4
+pip==23.3.1
 platformdirs==4.1.0
-pluggy @ file:///work/perseverance-python-buildout/croot/pluggy_1698805497733/work
-prometheus-client @ file:///work/perseverance-python-buildout/croot/prometheus_client_1698865353814/work
+pluggy==1.0.0
+prometheus-client==0.14.1
 prometheus-flask-exporter==0.23.0
-PySocks @ file:///work/perseverance-python-buildout/croot/pysocks_1698845478203/work
-pytest @ file:///work/perseverance-python-buildout/croot/pytest_1698845497894/work
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+pycparser==2.21
+PySocks==1.7.1
+pytest==7.4.0
+python-dateutil==2.8.2
 pytz==2023.3.post1
+PyYAML==6.0.1
 requests==2.31.0
 requests-cache==1.1.1
 retry-requests==2.0.0
-s3transfer @ file:///work/perseverance-python-buildout/croot/s3transfer_1701747823281/work
-selenium @ file:///work/perseverance-python-buildout/croot/selenium_1698901254801/work
+s3transfer==0.7.0
+selenium==3.141.0
 setuptools==68.2.2
-six @ file:///tmp/build/80754af9/six_1644875935023/work
+six==1.16.0
+tqdm==4.65.0
 tzdata==2023.4
 url-normalize==1.4.3
 urllib3==2.1.0
-Werkzeug @ file:///work/perseverance-python-buildout/croot/werkzeug_1698851019178/work
+Werkzeug==2.2.3
 wheel==0.41.2
+zstandard==0.19.0

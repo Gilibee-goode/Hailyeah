@@ -14,8 +14,15 @@
         source: pull
         force_source: yes
         
-    
-    - name: Copy Cosign program
+
+    - name: Install Cosign
+      shell: |
+        wget https://github.com/sigstore/cosign/releases/download/v1.5.2/cosign-linux-amd64 -O cosign
+        chmod +x cosign
+        sudo mv cosign /usr/local/bin/
+
+
+    - name: Copy Cosign pub key
       copy:
         src: ./cosign/cosign.pub
         dest: /home/ubuntu
@@ -24,17 +31,10 @@
         mode: '0644'
 
 
-    - name: Copy Cosign pub key
-      copy:
-        src: ./cosign/cosign-linux-amd64
-        dest: /home/ubuntu
-        owner: ubuntu
-        group: ubuntu
-        mode: '0644'
-
-
     - name: Run Cosign Verify
-      shell: pwd | cosign-linux-amd64 verify --key cosign.pub gilibee/hailyeah:latest
+      shell: |
+        pwd
+        cosign-linux-amd64 verify --key cosign.pub gilibee/hailyeah:latest
 
     - name: Stop previous Docker container
       community.docker.docker_container:

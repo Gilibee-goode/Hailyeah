@@ -24,7 +24,7 @@
 
     - name: Copy Cosign pub key
       copy:
-        src: ./cosign/cosign.pub
+        src: /home/runner/work/Hailyeah/Hailyeah/cosign/cosign.pub
         dest: /home/ubuntu
         owner: ubuntu
         group: ubuntu

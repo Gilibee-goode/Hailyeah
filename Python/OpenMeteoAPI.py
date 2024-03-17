@@ -5,6 +5,7 @@ import requests
 import json
 import boto3
 
+
 def get_weather_mood_emoji(weather_code):
     # Mapping WMO weather codes to emojis based on detailed categories
     code_to_emoji = {
@@ -35,12 +36,12 @@ def get_weather_mood_emoji(weather_code):
         27: "⛈️",            # Shower(s) of hail
         28: "🌫️",            # Fog or ice fog
         29: "⛈️",            # Thunderstorm
-        range(30, 40): "🌪️", # Dust/sand storms, blowing snow
-        range(40, 50): "🌫️", # Fog or ice fog
+        range(30, 40): "🌪️",  # Dust/sand storms, blowing snow
+        range(40, 50): "🌫️",  # Fog or ice fog
         range(50, 60): "💧",  # Drizzle
         range(60, 70): "🌧️",  # Rain
         range(70, 80): "❄️",  # Solid precipitation not in showers
-        range(80, 100): "🌦️", # Showery precipitation, thunderstorms
+        range(80, 100): "🌦️",  # Showery precipitation, thunderstorms
     }
 
     for code_range, emoji in code_to_emoji.items():
@@ -75,7 +76,6 @@ def get_lan_lon(usr_input):
     city = lonlat_dict.get("results")[0].get("name")
     country = lonlat_dict.get("results")[0].get("country")
 
-
     # print(f"Longitude and Latitude for {city} in {country}: ")
     # print(f"Latitude {input_lon}")
     # print(f"Latitude {input_lat}")
@@ -88,18 +88,19 @@ def get_lan_lon(usr_input):
 
     return ret
 
+
 def get_openmeteo_weather(lon_lat_dict):
     openmeteo_api_url = "https://api.open-meteo.com/v1/forecast"
     payload = {"latitude": lon_lat_dict.get("latitude"),
-              "longitude": lon_lat_dict.get("longitude"),
-              "current": "temperature_2m",
-              "daily": ["weather_code", "temperature_2m_max", "temperature_2m_min", "relative_humidity_2m_mean"]
-              # "timezone": "Africa/Cairo"
-              }
+               "longitude": lon_lat_dict.get("longitude"),
+               "current": "temperature_2m",
+               "daily": ["weather_code", "temperature_2m_max", "temperature_2m_min", "relative_humidity_2m_mean"]
+               # "timezone": "Africa/Cairo"
+               }
 
     response = requests.get(openmeteo_api_url, payload)
 
-    return response.json()# , response.status_code
+    return response.json()  # , response.status_code
 
 
 # def dynamodb_push(city, data):
@@ -145,7 +146,7 @@ def dynamodb_push_bkup(items):
     dynamodb = boto3.client('dynamodb', region_name='eu-north-1')
 
     def convert_to_dynamodb_type(value):
-            return {'S': str(value)}
+        return {'S': str(value)}
 
     print(items)
     for key, value in items.items():

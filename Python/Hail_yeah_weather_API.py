@@ -2,14 +2,18 @@
 # reviewer: Itay
 # testing Jenkins3
 
-from flask import Flask, request, render_template, Response, stream_with_context, jsonify, redirect, url_for
-from OpenMeteoAPI import get_lan_lon, get_openmeteo_weather, dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji
-# from prometheus_client import start_http_server, Counter, Histogram, Summary
+from flask import (Flask, request, render_template, Response,
+                   stream_with_context)
+from OpenMeteoAPI import (get_lan_lon, get_openmeteo_weather,
+                          dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji)
 from prometheus_flask_exporter import PrometheusMetrics
-# from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
 import requests
-import json
 import logging
+
+# from prometheus_client import start_http_server, Counter, Histogram, Summary
+# from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
+# from flask import jsonify, redirect, url_for
+# import json
 
 
 hailyeah = Flask(__name__)
@@ -57,7 +61,8 @@ def get_weather():
 
         data = get_openmeteo_weather(coords)
         if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
-            weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is part of the returned data
+            weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is
+            # part of the returned data
             weather_emojis = [get_weather_mood_emoji(i) for i in weather_code]
             city = coords.get("city", "FAILED")
 
@@ -66,7 +71,8 @@ def get_weather():
 
             @city_query_counter
             def return_render():
-                return render_template("index.html", city=city, coords=coords, data=data, weather_emojis=weather_emojis)
+                return render_template("index.html", city=city, coords=coords, data=data,
+                                       weather_emojis=weather_emojis)
             return return_render()
 
         else:  # if there is a problem which did not result in data.get("error") == True
@@ -93,8 +99,9 @@ def download_image():
 
     return Response(stream_with_context(generate()),
                     content_type=req.headers['Content-Type'],
-                    headers={"Content-Disposition":
-                                 "attachment; filename=lovely_sky_view.jpg"})
+                    headers={"Content-Disposition": "attachment; filename=lovely_sky_view.jpg"}
+                    )
+
 
 @hailyeah.route('/save-data', methods=['POST'])
 def save_data():
@@ -109,8 +116,8 @@ def save_data():
     # print(date)
 
     items = {
-        "city":city,
-        "date":date,
+        "city": city,
+        "date": date,
         "weather_emojis": weather_emojis,
         "DailyTempMax": DailyTempMax,
         "DailyTempMin": DailyTempMin,
@@ -122,6 +129,7 @@ def save_data():
     return render_template("index.html")
     # return redirect(url_for('index'))  # Redirect back to the main page
 
+
 @hailyeah.route('/bkup_db', methods=("GET", "POST"))
 def bkup_db():
     city = "Tel Aviv"
@@ -131,7 +139,6 @@ def bkup_db():
     if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
         weather_code = data.get("daily").get('weather_code')  # Assuming 'weather_code' is part of the returned data
         weather_emojis = [get_weather_mood_emoji(i) for i in weather_code]
-
 
     city = "Tel Aviv"
     date = data["daily"]["time"]
@@ -143,7 +150,6 @@ def bkup_db():
     # print("in bkup db")
     # print(date)
 
-
     items = {
         "city": city,
         "date": date,
@@ -154,11 +160,9 @@ def bkup_db():
     }
 
     # print(items)
-
     dynamodb_push_bkup(items)
     return render_template("index.html")
     # return redirect(url_for('index'))  # Redirect back to the main page
-
 
 
 if __name__ == "__main__":

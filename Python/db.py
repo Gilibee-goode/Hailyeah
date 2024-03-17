@@ -3,7 +3,7 @@ import urllib.parse
 
 
 def get_html():
-    url = ("http://16.171.31.115/bkup_db")
+    url = "http://16.171.31.115/bkup_db"
     values = {'city': 'Tel Aviv'}
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')  # Data should be bytes

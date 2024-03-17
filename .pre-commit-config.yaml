@@ -1,0 +1,8 @@
+repos:
+  - repo: https://github.com/Yelp/detect-secrets  # External repo where the hook is hosted
+    rev: v1.4.0  # Version of the tool
+    hooks:
+      - id: detect-secrets  # The specific hook to use
+        args: ['--no-verify']  # Additional arguments for the hook
+        exclude: 'requirements.txt'  # Files or paths to exclude
+

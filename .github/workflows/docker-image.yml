@@ -97,7 +97,7 @@ jobs:
         run: |
           docker buildx imagetools inspect docker.io/gilibee/hailyeah:latest
           docker pull docker.io/gilibee/hailyeah:latest
-          cosign verify --key cosign.pub docker.io/gilibee/hailyeah:latest
+          cosign verify --key ./cosign/cosign.pub docker.io/gilibee/hailyeah:latest
         
         
 

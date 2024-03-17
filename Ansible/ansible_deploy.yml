@@ -13,15 +13,37 @@
         name: "gilibee/hailyeah:latest"
         source: pull
         force_source: yes
+        
+    
+    - name: Copy Cosign program
+      copy:
+        src: ./cosign/cosign.pub
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+
+    - name: Copy Cosign pub key
+      copy:
+        src: ./cosign/cosign-linux-amd64
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+
+    - name: Run Cosign Verify
+      shell: pwd | cosign-linux-amd64 verify --key cosign.pub gilibee/hailyeah:latest
 
     - name: Stop previous Docker container
       community.docker.docker_container:
-        name: hailyeah_app80
+        name: hailyeah_app
         state: absent
 
     - name: Launch the new Docker container
       community.docker.docker_container:
-        name: hailyeah_app80
+        name: hailyeah_app
         image: "gilibee/hailyeah:latest"
         state: started
         ports:

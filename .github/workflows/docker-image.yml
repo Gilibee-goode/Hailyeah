@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          cat requirements.txt | xargs -n 1 pip install
+          cat requirements.txt | xargs -n 1 pip install || true
       
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/python-3.8@master
@@ -38,6 +38,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+
+    needs: [snyk-python]
 
     steps:
       - name: Checkout

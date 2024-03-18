@@ -15,26 +15,26 @@
         force_source: yes
         
 
-    #- name: Install Cosign
-    #  shell: |
-    #    wget https://github.com/sigstore/cosign/releases/download/v1.5.2/cosign-linux-amd64 -O cosign
-    #    chmod +x cosign
-    #    sudo mv cosign /usr/local/bin/
+    - name: Install Cosign
+      shell: |
+        wget https://github.com/sigstore/cosign/releases/download/v1.5.2/cosign-linux-amd64 -O cosign
+        chmod +x cosign
+        sudo mv cosign /usr/local/bin/
 
 
-    #- name: Copy Cosign pub key
-    #  copy:
-    #    src: /home/runner/work/Hailyeah/Hailyeah/cosign/cosign.pub
-    #    dest: /home/ubuntu
-    #    owner: ubuntu
-    #    group: ubuntu
-    #    mode: '0644'
+    - name: Copy Cosign pub key
+      copy:
+        src: /home/runner/work/Hailyeah/Hailyeah/cosign/cosign.pub
+        dest: /home/ubuntu
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
 
 
-    #- name: Run Cosign Verify
-    #  shell: |
-    #    pwd
-    #    cd /home/ubuntu && cosign verify --key cosign.pub gilibee/hailyeah:latest
+    - name: Run Cosign Verify
+      shell: |
+        pwd
+        cd /home/ubuntu && /usr/local/bin/cosign verify --key cosign.pub gilibee/hailyeah:latest
 
     - name: Stop previous Docker container
       community.docker.docker_container:

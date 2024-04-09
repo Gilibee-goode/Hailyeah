@@ -1,0 +1,328 @@
+2024-03-21 09:39:00,631 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-03-21 09:39:00,631 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:21:03,950 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:21:03,951 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:21:25,356 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-04-09 13:21:25,356 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:23:45,104 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:23:45,104 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:23:56,906 - INFO - 127.0.0.1 - - [09/Apr/2024 13:23:56] "GET / HTTP/1.1" 200 -
+2024-04-09 13:23:56,947 - INFO - 127.0.0.1 - - [09/Apr/2024 13:23:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-04-09 13:25:08,262 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:25:08,262 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:25:08,262 - INFO -  * Restarting with stat
+2024-04-09 13:25:08,493 - WARNING -  * Debugger is active!
+2024-04-09 13:25:08,494 - INFO -  * Debugger PIN: 166-081-181
+2024-04-09 13:25:13,939 - INFO - 127.0.0.1 - - [09/Apr/2024 13:25:13] "GET / HTTP/1.1" 200 -
+2024-04-09 13:25:29,536 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:25:29,537 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:25:34,665 - INFO - Received POST request to query weather for city: honolulu
+2024-04-09 13:25:34,950 - INFO - Successfully retrieved coordinates for city: honolulu -> {'ret_status': 200, 'city': 'Honolulu', 'country': 'United States', 'longitude': -157.85834, 'latitude': 21.30694}
+2024-04-09 13:25:35,219 - INFO - Successfully retrieved weather data for city: Honolulu
+2024-04-09 13:25:35,246 - INFO - 127.0.0.1 - - [09/Apr/2024 13:25:35] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:25:47,119 - INFO - Received POST request to query weather for city: Tokyo
+2024-04-09 13:25:47,388 - INFO - Successfully retrieved coordinates for city: Tokyo -> {'ret_status': 200, 'city': 'Tokyo', 'country': 'Japan', 'longitude': 139.69171, 'latitude': 35.6895}
+2024-04-09 13:25:47,628 - INFO - Successfully retrieved weather data for city: Tokyo
+2024-04-09 13:25:47,631 - INFO - 127.0.0.1 - - [09/Apr/2024 13:25:47] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:25:50,500 - INFO - Received POST request to query weather for city: raanana
+2024-04-09 13:25:50,777 - INFO - Successfully retrieved coordinates for city: raanana -> {'ret_status': 200, 'city': 'Raanana', 'country': 'Israel', 'longitude': 34.87386, 'latitude': 32.1836}
+2024-04-09 13:25:51,055 - INFO - Successfully retrieved weather data for city: Raanana
+2024-04-09 13:25:51,057 - INFO - 127.0.0.1 - - [09/Apr/2024 13:25:51] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:06,923 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:27:06,923 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:27:13,222 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:13] "GET / HTTP/1.1" 200 -
+2024-04-09 13:27:15,846 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 13:27:16,071 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 13:27:16,298 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 13:27:16,301 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:16] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:19,294 - INFO - Received POST request to query weather for city: Mordor
+2024-04-09 13:27:19,529 - ERROR - Failed to retrieve coordinates for city: Mordor. Error: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/gilibee/GitLab_Hailyeah/Python/Hail_yeah_weather_API.py", line 56, in get_weather
+    coords = get_lan_lon(city)
+             ^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/GitLab_Hailyeah/Python/OpenMeteoAPI.py", line 102, in get_lan_lon
+    lat = lonlat_dict.get("results")[0].get("latitude")
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+2024-04-09 13:27:19,533 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:19] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:24,701 - INFO - Received POST request to query weather for city: Honk Kong
+2024-04-09 13:27:24,928 - ERROR - Failed to retrieve coordinates for city: Honk Kong. Error: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/gilibee/GitLab_Hailyeah/Python/Hail_yeah_weather_API.py", line 56, in get_weather
+    coords = get_lan_lon(city)
+             ^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/GitLab_Hailyeah/Python/OpenMeteoAPI.py", line 102, in get_lan_lon
+    lat = lonlat_dict.get("results")[0].get("latitude")
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+2024-04-09 13:27:24,933 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:24] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:27,174 - INFO - Received POST request to query weather for city: shit
+2024-04-09 13:27:27,393 - INFO - Successfully retrieved coordinates for city: shit -> {'ret_status': 200, 'city': 'Shīt', 'country': 'Iran', 'longitude': 48.69911, 'latitude': 36.97775}
+2024-04-09 13:27:27,673 - INFO - Successfully retrieved weather data for city: Shīt
+2024-04-09 13:27:27,676 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:27] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:44,908 - INFO - Received POST request to query weather for city: Tokyo
+2024-04-09 13:27:45,147 - INFO - Successfully retrieved coordinates for city: Tokyo -> {'ret_status': 200, 'city': 'Tokyo', 'country': 'Japan', 'longitude': 139.69171, 'latitude': 35.6895}
+2024-04-09 13:27:45,393 - INFO - Successfully retrieved weather data for city: Tokyo
+2024-04-09 13:27:45,397 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:45] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:27:48,038 - INFO - Received POST request to query weather for city: raanana
+2024-04-09 13:27:48,280 - INFO - Successfully retrieved coordinates for city: raanana -> {'ret_status': 200, 'city': 'Raanana', 'country': 'Israel', 'longitude': 34.87386, 'latitude': 32.1836}
+2024-04-09 13:27:48,554 - INFO - Successfully retrieved weather data for city: Raanana
+2024-04-09 13:27:48,556 - INFO - 127.0.0.1 - - [09/Apr/2024 13:27:48] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:30:15,151 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:30:15,151 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:30:18,289 - INFO - Received POST request to query weather for city: raanana
+2024-04-09 13:30:18,535 - INFO - Successfully retrieved coordinates for city: raanana -> {'ret_status': 200, 'city': 'Raanana', 'country': 'Israel', 'longitude': 34.87386, 'latitude': 32.1836}
+2024-04-09 13:30:18,784 - INFO - Successfully retrieved weather data for city: Raanana
+2024-04-09 13:30:18,806 - INFO - 127.0.0.1 - - [09/Apr/2024 13:30:18] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:30:23,736 - INFO - Received POST request to query weather for city: gondor
+2024-04-09 13:30:23,991 - INFO - Successfully retrieved coordinates for city: gondor -> {'ret_status': 200, 'city': 'Gondorf', 'country': 'Germany', 'longitude': 6.61667, 'latitude': 49.96667}
+2024-04-09 13:30:24,227 - INFO - Successfully retrieved weather data for city: Gondorf
+2024-04-09 13:30:24,230 - INFO - 127.0.0.1 - - [09/Apr/2024 13:30:24] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:43:47,473 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:43:47,473 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:43:53,247 - INFO - 127.0.0.1 - - [09/Apr/2024 13:43:53] "GET / HTTP/1.1" 200 -
+2024-04-09 13:43:56,289 - INFO - Received POST request to query weather for city: shit
+2024-04-09 13:43:56,568 - INFO - Successfully retrieved coordinates for city: shit -> {'ret_status': 200, 'city': 'Shīt', 'country': 'Iran', 'longitude': 48.69911, 'latitude': 36.97775}
+2024-04-09 13:43:56,809 - INFO - Successfully retrieved weather data for city: Shīt
+2024-04-09 13:43:56,813 - INFO - 127.0.0.1 - - [09/Apr/2024 13:43:56] "POST /city HTTP/1.1" 200 -
+2024-04-09 13:43:59,011 - INFO - 127.0.0.1 - - [09/Apr/2024 13:43:59] "GET /download-search-history HTTP/1.1" 200 -
+2024-04-09 13:54:33,572 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:54:33,572 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:54:38,873 - INFO - 127.0.0.1 - - [09/Apr/2024 13:54:38] "GET / HTTP/1.1" 200 -
+2024-04-09 13:56:54,545 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:56:54,545 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:56:57,756 - INFO - 127.0.0.1 - - [09/Apr/2024 13:56:57] "GET / HTTP/1.1" 200 -
+2024-04-09 13:56:58,514 - INFO - 127.0.0.1 - - [09/Apr/2024 13:56:58] "GET / HTTP/1.1" 200 -
+2024-04-09 13:56:58,848 - INFO - 127.0.0.1 - - [09/Apr/2024 13:56:58] "GET / HTTP/1.1" 200 -
+2024-04-09 13:57:05,349 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:57:05,349 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 13:57:07,360 - INFO - 127.0.0.1 - - [09/Apr/2024 13:57:07] "GET / HTTP/1.1" 200 -
+2024-04-09 13:58:04,331 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 13:58:04,331 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:04:27,173 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:04:27,173 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:04:30,999 - INFO - 127.0.0.1 - - [09/Apr/2024 14:04:30] "GET / HTTP/1.1" 200 -
+2024-04-09 14:04:31,675 - INFO - 127.0.0.1 - - [09/Apr/2024 14:04:31] "GET / HTTP/1.1" 200 -
+2024-04-09 14:04:31,913 - INFO - 127.0.0.1 - - [09/Apr/2024 14:04:31] "GET / HTTP/1.1" 200 -
+2024-04-09 14:04:48,236 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:04:48,236 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:09:57,738 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:09:57,738 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:10:08,740 - INFO - 127.0.0.1 - - [09/Apr/2024 14:10:08] "GET / HTTP/1.1" 200 -
+2024-04-09 14:10:11,246 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 14:10:11,973 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 14:10:12,378 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 14:10:12,379 - ERROR - Exception on /city [POST]
+Traceback (most recent call last):
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/GitLab_Hailyeah/Python/Hail_yeah_weather_API.py", line 80, in get_weather
+    update_search_history(city)
+  File "/home/gilibee/GitLab_Hailyeah/Python/OpenMeteoAPI.py", line 35, in update_search_history
+    history[datetime_key].append(city)  # Append the city to today's list
+    ~~~~~~~^^^^^^^^^^^^^^
+KeyError: '2024-04-09 14:10:12'
+2024-04-09 14:10:12,386 - INFO - 127.0.0.1 - - [09/Apr/2024 14:10:12] "[35m[1mPOST /city HTTP/1.1[0m" 500 -
+2024-04-09 14:10:22,975 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 14:10:23,214 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 14:10:23,466 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 14:10:23,467 - ERROR - Exception on /city [POST]
+Traceback (most recent call last):
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/GitLab_Hailyeah/Python/Hail_yeah_weather_API.py", line 80, in get_weather
+    update_search_history(city)
+  File "/home/gilibee/GitLab_Hailyeah/Python/OpenMeteoAPI.py", line 35, in update_search_history
+    history[datetime_key].append(city)  # Append the city to today's list
+    ~~~~~~~^^^^^^^^^^^^^^
+KeyError: '2024-04-09 14:10:23'
+2024-04-09 14:10:23,471 - INFO - 127.0.0.1 - - [09/Apr/2024 14:10:23] "[35m[1mPOST /city HTTP/1.1[0m" 500 -
+2024-04-09 14:10:28,064 - INFO - Received POST request to query weather for city: tel av
+2024-04-09 14:10:28,336 - INFO - Successfully retrieved coordinates for city: tel av -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 14:10:28,615 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 14:10:28,616 - ERROR - Exception on /city [POST]
+Traceback (most recent call last):
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 2529, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/anaconda3/envs/OpenMeteo_env/lib/python3.12/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gilibee/GitLab_Hailyeah/Python/Hail_yeah_weather_API.py", line 80, in get_weather
+    update_search_history(city)
+  File "/home/gilibee/GitLab_Hailyeah/Python/OpenMeteoAPI.py", line 35, in update_search_history
+    history[datetime_key].append(city)  # Append the city to today's list
+    ~~~~~~~^^^^^^^^^^^^^^
+KeyError: '2024-04-09 14:10:28'
+2024-04-09 14:10:28,619 - INFO - 127.0.0.1 - - [09/Apr/2024 14:10:28] "[35m[1mPOST /city HTTP/1.1[0m" 500 -
+2024-04-09 14:11:11,161 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:11:11,161 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:11:14,497 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:14] "GET / HTTP/1.1" 200 -
+2024-04-09 14:11:17,728 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 14:11:17,976 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 14:11:18,215 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 14:11:18,219 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:18] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:11:26,933 - INFO - Received POST request to query weather for city: honolulu
+2024-04-09 14:11:28,255 - INFO - Successfully retrieved coordinates for city: honolulu -> {'ret_status': 200, 'city': 'Honolulu', 'country': 'United States', 'longitude': -157.85834, 'latitude': 21.30694}
+2024-04-09 14:11:28,529 - INFO - Successfully retrieved weather data for city: Honolulu
+2024-04-09 14:11:28,532 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:28] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:11:44,646 - INFO - Received GET request to '/city' endpoint - returned to '/'.
+2024-04-09 14:11:44,647 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:44] "GET /city HTTP/1.1" 200 -
+2024-04-09 14:11:57,054 - INFO - Received POST request to query weather for city: raanana
+2024-04-09 14:11:57,303 - INFO - Successfully retrieved coordinates for city: raanana -> {'ret_status': 200, 'city': 'Raanana', 'country': 'Israel', 'longitude': 34.87386, 'latitude': 32.1836}
+2024-04-09 14:11:57,559 - INFO - Successfully retrieved weather data for city: Raanana
+2024-04-09 14:11:57,562 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:57] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:11:58,326 - INFO - Received POST request to query weather for city: Tokyo
+2024-04-09 14:11:58,547 - INFO - Successfully retrieved coordinates for city: Tokyo -> {'ret_status': 200, 'city': 'Tokyo', 'country': 'Japan', 'longitude': 139.69171, 'latitude': 35.6895}
+2024-04-09 14:11:58,819 - INFO - Successfully retrieved weather data for city: Tokyo
+2024-04-09 14:11:58,821 - INFO - 127.0.0.1 - - [09/Apr/2024 14:11:58] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:12:13,298 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 14:12:13,549 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 14:12:13,807 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 14:12:13,810 - INFO - 127.0.0.1 - - [09/Apr/2024 14:12:13] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:12:14,341 - INFO - Received POST request to query weather for city: shit
+2024-04-09 14:12:14,579 - INFO - Successfully retrieved coordinates for city: shit -> {'ret_status': 200, 'city': 'Shīt', 'country': 'Iran', 'longitude': 48.69911, 'latitude': 36.97775}
+2024-04-09 14:12:14,851 - INFO - Successfully retrieved weather data for city: Shīt
+2024-04-09 14:12:14,852 - INFO - 127.0.0.1 - - [09/Apr/2024 14:12:14] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:12:38,586 - INFO - Received POST request to query weather for city: tokyo
+2024-04-09 14:12:38,802 - INFO - Successfully retrieved coordinates for city: tokyo -> {'ret_status': 200, 'city': 'Tokyo', 'country': 'Japan', 'longitude': 139.69171, 'latitude': 35.6895}
+2024-04-09 14:12:39,047 - INFO - Successfully retrieved weather data for city: Tokyo
+2024-04-09 14:12:39,049 - INFO - 127.0.0.1 - - [09/Apr/2024 14:12:39] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:12:39,189 - INFO - Received POST request to query weather for city: shit
+2024-04-09 14:12:39,385 - INFO - Successfully retrieved coordinates for city: shit -> {'ret_status': 200, 'city': 'Shīt', 'country': 'Iran', 'longitude': 48.69911, 'latitude': 36.97775}
+2024-04-09 14:12:39,604 - INFO - Successfully retrieved weather data for city: Shīt
+2024-04-09 14:12:39,607 - INFO - 127.0.0.1 - - [09/Apr/2024 14:12:39] "POST /city HTTP/1.1" 200 -
+2024-04-09 14:20:04,783 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:20:04,783 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:20:31,433 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:20:31,433 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:20:37,042 - INFO - 127.0.0.1 - - [09/Apr/2024 14:20:37] "GET / HTTP/1.1" 200 -
+2024-04-09 14:21:26,788 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 14:21:26,788 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 14:21:33,283 - INFO - 127.0.0.1 - - [09/Apr/2024 14:21:33] "GET / HTTP/1.1" 200 -
+2024-04-09 15:36:38,038 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 15:36:38,038 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 15:36:41,884 - INFO - 127.0.0.1 - - [09/Apr/2024 15:36:41] "GET / HTTP/1.1" 200 -
+2024-04-09 15:36:44,678 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 15:36:45,027 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 15:36:45,373 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 15:36:45,377 - INFO - 127.0.0.1 - - [09/Apr/2024 15:36:45] "POST /city HTTP/1.1" 200 -
+2024-04-09 15:36:49,671 - INFO - Received POST request to query weather for city: honolulu
+2024-04-09 15:36:49,903 - INFO - Successfully retrieved coordinates for city: honolulu -> {'ret_status': 200, 'city': 'Honolulu', 'country': 'United States', 'longitude': -157.85834, 'latitude': 21.30694}
+2024-04-09 15:36:50,138 - INFO - Successfully retrieved weather data for city: Honolulu
+2024-04-09 15:36:50,141 - INFO - 127.0.0.1 - - [09/Apr/2024 15:36:50] "POST /city HTTP/1.1" 200 -
+2024-04-09 15:37:25,029 - INFO - Received POST request to query weather for city: tel aviv
+2024-04-09 15:37:25,275 - INFO - Successfully retrieved coordinates for city: tel aviv -> {'ret_status': 200, 'city': 'Tel Aviv', 'country': 'Israel', 'longitude': 34.78057, 'latitude': 32.08088}
+2024-04-09 15:37:25,526 - INFO - Successfully retrieved weather data for city: Tel Aviv
+2024-04-09 15:37:25,528 - INFO - 127.0.0.1 - - [09/Apr/2024 15:37:25] "POST /city HTTP/1.1" 200 -
+2024-04-09 15:38:12,322 - INFO - 127.0.0.1 - - [09/Apr/2024 15:38:12] "[33mGET /download-search-history HTTP/1.1[0m" 404 -
+2024-04-09 15:58:53,990 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 15:58:53,990 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 15:59:02,041 - INFO - 127.0.0.1 - - [09/Apr/2024 15:59:02] "GET / HTTP/1.1" 200 -
+2024-04-09 15:59:05,318 - INFO - Received POST request to query weather for city: honolulu
+2024-04-09 15:59:05,584 - INFO - Successfully retrieved coordinates for city: honolulu -> {'ret_status': 200, 'city': 'Honolulu', 'country': 'United States', 'longitude': -157.85834, 'latitude': 21.30694}
+2024-04-09 15:59:05,851 - INFO - Successfully retrieved weather data for city: Honolulu
+2024-04-09 15:59:05,854 - INFO - 127.0.0.1 - - [09/Apr/2024 15:59:05] "POST /city HTTP/1.1" 200 -
+2024-04-09 15:59:09,445 - INFO - 127.0.0.1 - - [09/Apr/2024 15:59:09] "[33mGET /download-search-history HTTP/1.1[0m" 404 -
+2024-04-09 16:02:49,767 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.1.0.86:5000
+2024-04-09 16:02:49,767 - INFO - [33mPress CTRL+C to quit[0m
+2024-04-09 16:02:53,895 - INFO - 127.0.0.1 - - [09/Apr/2024 16:02:53] "GET / HTTP/1.1" 200 -
+2024-04-09 16:02:57,665 - INFO - Received POST request to query weather for city: tokyo
+2024-04-09 16:02:57,916 - INFO - Successfully retrieved coordinates for city: tokyo -> {'ret_status': 200, 'city': 'Tokyo', 'country': 'Japan', 'longitude': 139.69171, 'latitude': 35.6895}
+2024-04-09 16:02:58,197 - INFO - Successfully retrieved weather data for city: Tokyo
+2024-04-09 16:02:58,200 - INFO - 127.0.0.1 - - [09/Apr/2024 16:02:58] "POST /city HTTP/1.1" 200 -
+2024-04-09 16:03:02,680 - INFO - 127.0.0.1 - - [09/Apr/2024 16:03:02] "[33mGET /history HTTP/1.1[0m" 404 -

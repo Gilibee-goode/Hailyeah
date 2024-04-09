@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Weather History</title>
+</head>
+<body>
+    <h1>Weather Query History</h1>
+    <ul>
+        {% for filename, url in files.items() %}
+            <li><a href="{{ url }}">{{ filename }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+

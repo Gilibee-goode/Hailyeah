@@ -1,14 +1,16 @@
 # autor: Gili
 # reviewer: Itay
-# testing Jenkins3
 
 from flask import (Flask, request, render_template, Response,
-                   stream_with_context)
+                   stream_with_context, send_from_directory)
 from OpenMeteoAPI import (get_lan_lon, get_openmeteo_weather,
-                          dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji)
+                          dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji,
+                          save_query_result)
 from prometheus_flask_exporter import PrometheusMetrics
 import requests
 import logging
+import os
+
 
 # from prometheus_client import start_http_server, Counter, Histogram, Summary
 # from prometheus_flask_exporter.multiprocess import GunicornPrometheusMetrics
@@ -34,10 +36,15 @@ logging.basicConfig(level=logging.INFO, filename='./logs/weather_app.log', filem
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+# ------ read env vars ------
+bg_color_code = os.getenv('BG_COLOR', '#d10011')  # Defaulting to a red color if BG_COLOR isn't set
+print(bg_color_code)
+
+
 # ----- Pages ------
 @hailyeah.route('/', methods=["GET", "POST"])
 def index():
-    return render_template('index.html')
+    return render_template('index.html', bg_color_code=bg_color_code)
 
 
 @hailyeah.route("/city", methods=("GET", "POST"))
@@ -57,7 +64,7 @@ def get_weather():
         except Exception as e:
             # Log the exception when city coordinates cannot be fetched
             logging.error(f"Failed to retrieve coordinates for city: {city}. Error: {e}", exc_info=True)
-            return render_template("index.html")
+            return render_template("index.html", bg_color_code=bg_color_code)
 
         data = get_openmeteo_weather(coords)
         if not (data.get("error", False) is True):  # if there is no error (i.e., reply 400)
@@ -69,22 +76,50 @@ def get_weather():
             # Log the successful retrieval of weather data
             logging.info(f"Successfully retrieved weather data for city: {city}")
 
+            # Update the search history
+            save_query_result(city, data)
+
             @city_query_counter
             def return_render():
                 return render_template("index.html", city=city, coords=coords, data=data,
-                                       weather_emojis=weather_emojis)
+                                       weather_emojis=weather_emojis, bg_color_code=bg_color_code)
             return return_render()
 
         else:  # if there is a problem which did not result in data.get("error") == True
 
             # Log the occurrence of an error in fetching weather data
             logging.warning(f"Unknown error fetching weather data for city: {city}. Data: {data}")
-            return render_template("index.html")
+            return render_template("index.html", bg_color_code=bg_color_code)
 
     else:
         # Log the receipt of a GET request to the city endpoint
         logging.info("Received GET request to '/city' endpoint - returned to '/'.")
-        return render_template("index.html")
+        return render_template("index.html", bg_color_code=bg_color_code)
+
+
+# @hailyeah.route('/download-search-history')
+# def download_search_history():
+#     directory = os.path.join(os.getcwd(), 'search_history')  # Point to the 'search_history' directory
+#     filename = 'history.json'
+#     return send_from_directory(directory, filename, as_attachment=True, download_name=filename)
+
+@hailyeah.route('/search-history')
+def history():
+    directory = './search_history'
+    files = os.listdir(directory)
+    files = [f for f in files if f.endswith('.json')]  # Filter to only include .json files
+    # Generate URLs for downloading each file
+    files_urls = {f: f'/download/{f}' for f in files}
+    return render_template('history.html', files=files_urls)
+
+
+@hailyeah.route('/download/<filename>')
+def download_file(filename):
+    directory = os.path.join(os.getcwd(), 'search_history')  # Ensure this matches your directory structure
+    try:
+        return send_from_directory(directory, filename, as_attachment=True, download_name=filename)
+    except Exception as e:
+        return str(e)
 
 
 @hailyeah.route('/download-image')
@@ -126,7 +161,7 @@ def save_data():
 
     # print(items)
     dynamodb_push(items)
-    return render_template("index.html")
+    return render_template("index.html", bg_color_code=bg_color_code)
     # return redirect(url_for('index'))  # Redirect back to the main page
 
 
@@ -161,7 +196,7 @@ def bkup_db():
 
     # print(items)
     dynamodb_push_bkup(items)
-    return render_template("index.html")
+    return render_template("index.html", bg_color_code=bg_color_code)
     # return redirect(url_for('index'))  # Redirect back to the main page
 
 

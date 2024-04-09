@@ -7,7 +7,8 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #4e03fc;
+            background-color: {{ bg_color_code }};
+
             color: white;
             /*background-color: lime; */
         }
@@ -91,6 +92,10 @@
 
         <!-- Download Button for the Image -->
         <button onclick="window.location.href='/download-image'">Download Sky View Image</button>
+        <form action="/history">
+			<a href="/search-history" class="button">View Query History</a>
+		</form>
+
         <!-- <button onclick="window.location.href='/sava-data'">Save weekly data to DynamoDB</button> -->
 
         {% endif %}

@@ -1,12 +1,14 @@
 version: '3.8'
 services:
   hailyeah:
-    image: gilibee/hailyeah:latest
+    image: gilibee/hailyeah_private:latest
     ports:
       - "80:80"
     volumes:
       - hailyeah-logs:/app/logs
-    restart: always
-    
+    #restart: always
+    environment:
+      - BG_COLOR=#80573c  # Set the background color environment variable
+  
 volumes:
   hailyeah-logs:

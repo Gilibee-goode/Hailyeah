@@ -17,6 +17,7 @@ def save_query_result(city, data):
     :param city: The city that was queried.
     :param data: The data returned from the query.
     """
+
     history_path = Path('./search_history')
 
     # Format the current date and time to create a unique file name
@@ -27,37 +28,6 @@ def save_query_result(city, data):
     # Save the data to the file
     with open(filepath, 'w') as file:
         json.dump(data, file, indent=4)
-
-#
-# def read_search_history():
-#     history_path = Path('./search_history/history.json')
-#     if not history_path.exists():
-#         return {}
-#     with open(history_path, 'r') as file:
-#         return json.load(file)
-#
-#
-# def write_search_history(history):
-#     try:
-#         with open('./search_history/history.json', 'w') as file:
-#             json.dump(history, file, indent=4)
-#     except Exception as e:
-#         logging.error(f"Failed to write to search history. Error: {e}")
-#
-#
-# def update_search_history(city):
-#     history = read_search_history()
-#     datetime_key = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-#     # Use datetime as the key for uniqueness
-#
-#     if datetime_key in history:
-#         history[datetime_key] = [i for i in history[datetime_key]]
-#         history[datetime_key].append(city)  # Append the city to today's list
-#
-#     else:
-#         history[datetime_key] = [city]
-#
-#     write_search_history(history)
 
 
 

@@ -6,9 +6,9 @@ from flask import (Flask, request, render_template, Response,
 from OpenMeteoAPI import (get_lan_lon, get_openmeteo_weather,
                           dynamodb_push, dynamodb_push_bkup, get_weather_mood_emoji,
                           save_query_result)
-# from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_flask_exporter import PrometheusMetrics
 import requests
-# import logging
+import logging
 import os
 
 
@@ -21,19 +21,19 @@ import os
 hailyeah = Flask(__name__)
 
 # ----- Setting up metrics for Prometheus ------
-# metrics = PrometheusMetrics(hailyeah)
+metrics = PrometheusMetrics(hailyeah)
 # metrics = GunicornPrometheusMetrics(hailyeah)
 
-# metrics.info('app_info', 'Hailyeah web app metrics')  # static metric
+metrics.info('app_info', 'Hailyeah web app metrics')  # static metric
 
 city = None
-# city_query_counter = metrics.counter(
-#     'city_queries', 'Number of queries by city', labels={'city': lambda: city})
+city_query_counter = metrics.counter(
+    'city_queries', 'Number of queries by city', labels={'city': lambda: city})
 
 
 # ----- Setting up logging ------
-# logging.basicConfig(level=logging.INFO, filename='./logs/weather_app.log', filemode='a',
-#                     format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, filename='./logs/weather_app.log', filemode='a',
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 # ------ read env vars ------
@@ -42,28 +42,28 @@ print(bg_color_code)
 
 
 # ----- Pages ------
-@hailyeah.route('/hailyeah', methods=["GET", "POST"])
+@hailyeah.route('/', methods=["GET", "POST"])
 def index():
     return render_template('index.html', bg_color_code=bg_color_code)
 
 
-@hailyeah.route("/hailyeah/city", methods=("GET", "POST"))
+@hailyeah.route("/city", methods=("GET", "POST"))
 def get_weather():
     if request.method == "POST":
         global city  # to allow the @city_query_counter to register it as a metric
         city = request.form["city"]
 
         # Log the attempt to query weather for a city
-        # logging.info(f"Received POST request to query weather for city: {city}")
+        logging.info(f"Received POST request to query weather for city: {city}")
 
         try:  # No city match returns to homepage
             coords = get_lan_lon(city)
             # Log successful retrieval of coordinates
-            # logging.info(f"Successfully retrieved coordinates for city: {city} -> {coords}")
+            logging.info(f"Successfully retrieved coordinates for city: {city} -> {coords}")
 
         except Exception as e:
             # Log the exception when city coordinates cannot be fetched
-            # logging.error(f"Failed to retrieve coordinates for city: {city}. Error: {e}", exc_info=True)
+            logging.error(f"Failed to retrieve coordinates for city: {city}. Error: {e}", exc_info=True)
             return render_template("index.html", bg_color_code=bg_color_code)
 
         data = get_openmeteo_weather(coords)
@@ -74,31 +74,31 @@ def get_weather():
             city = coords.get("city", "FAILED")
 
             # Log the successful retrieval of weather data
-            # logging.info(f"Successfully retrieved weather data for city: {city}")
+            logging.info(f"Successfully retrieved weather data for city: {city}")
 
             # Update the search history
             save_query_result(city, data)
 
-            # @city_query_counter
-            #     def return_render():
-            return render_template("index.html", city=city, coords=coords, data=data,
+            @city_query_counter
+            def return_render():
+                return render_template("index.html", city=city, coords=coords, data=data,
                                        weather_emojis=weather_emojis, bg_color_code=bg_color_code)
-            # return return_render()
+            return return_render()
 
         else:  # if there is a problem which did not result in data.get("error") == True
 
             # Log the occurrence of an error in fetching weather data
-            # logging.warning(f"Unknown error fetching weather data for city: {city}. Data: {data}")
+            logging.warning(f"Unknown error fetching weather data for city: {city}. Data: {data}")
             return render_template("index.html", bg_color_code=bg_color_code)
 
     else:
         # Log the receipt of a GET request to the city endpoint
-        # logging.info("Received GET request to '/city' endpoint - returned to '/'.")
+        logging.info("Received GET request to '/city' endpoint - returned to '/'.")
         return render_template("index.html", bg_color_code=bg_color_code)
 
 
 
-@hailyeah.route('/hailyeah/search-history')
+@hailyeah.route('/search-history')
 def history():
     directory = './search_history'
     files = os.listdir(directory)
@@ -108,7 +108,7 @@ def history():
     return render_template('history.html', files=files_urls)
 
 
-@hailyeah.route('/hailyeah/download/<filename>')
+@hailyeah.route('/download/<filename>')
 def download_file(filename):
     directory = os.path.join(os.getcwd(), 'search_history')  # Ensure this matches your directory structure
     try:
@@ -117,7 +117,7 @@ def download_file(filename):
         return str(e)
 
 
-@hailyeah.route('/hailyeah/download-image')
+@hailyeah.route('/download-image')
 def download_image():
     image_url = 'https://kick-da-bucket.s3.eu-north-1.amazonaws.com/lovely_sky_view.jpg'
 
@@ -133,7 +133,7 @@ def download_image():
                     )
 
 
-@hailyeah.route('/hailyeah/save-data', methods=['POST'])
+@hailyeah.route('/save-data', methods=['POST'])
 def save_data():
     city = request.form.get('city')
     date = request.form.get('date')
@@ -160,7 +160,7 @@ def save_data():
     # return redirect(url_for('index'))  # Redirect back to the main page
 
 
-@hailyeah.route('/hailyeah/bkup_db', methods=("GET", "POST"))
+@hailyeah.route('/bkup_db', methods=("GET", "POST"))
 def bkup_db():
     city = "Tel Aviv"
     coords = get_lan_lon(city)

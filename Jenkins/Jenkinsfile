@@ -9,6 +9,7 @@ pipeline {
         IMAGE_TAG = 'latest'
         // Deploy location (Hailyeah server) FFS
         // DEPLOY_IP = '13.49.145.240'
+        EKS_URL = 'https://E85A90E02EDE053F6B01BDD877119D32.gr7.eu-north-1.eks.amazonaws.com'
     }
     stages {
         stage('Build Docker Image') {
@@ -44,6 +45,17 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to EKS using Helm'){
+            steps {
+                withKubeConfig([credentialsId: 'EKS_Token', serverUrl: "${EKS_URL}"]) {
+                    sh "helm upgrade --reuse-values --set weatherAppImage.repository=${IMAGE_NAME} --set weatherAppImage.tag=${IMAGE_TAG} hailyeah EKS/Helm/"
+                }
+            }
+
+        }
+
+
+
 	// stage('Deploy to AWS - sh') {
     //         steps {
     //             withCredentials([sshUserPrivateKey(credentialsId: 'aws-ssh-ubuntu', keyFileVariable: 'SSH_PRIVATE_KEY')]) {

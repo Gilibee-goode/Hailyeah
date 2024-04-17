@@ -42,7 +42,7 @@ print(bg_color_code)
 
 
 # ----- Pages ------
-@hailyeah.route('/hailyeah', methods=["GET", "POST"])
+@hailyeah.route('/hailyeah/', methods=["GET", "POST"])
 def index():
     return render_template('index.html', bg_color_code=bg_color_code)
 

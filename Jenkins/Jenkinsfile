@@ -41,6 +41,7 @@ pipeline {
                     sh 'echo Pushing image to Dorkerhub'
                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
                         docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push("${IMAGE_TAG}")
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").push("build-${BUILD_NUMBER}")
                     }
                 }
             }
@@ -48,7 +49,7 @@ pipeline {
         stage('Deploy to EKS using Helm'){
             steps {
                 withKubeConfig([credentialsId: 'EKS_Token', serverUrl: "${EKS_URL}"]) {
-                    sh "helm upgrade --reuse-values --set weatherAppImage.repository=${IMAGE_NAME} --set weatherAppImage.tag=${IMAGE_TAG} hailyeah EKS/Helm/"
+                    sh "helm upgrade --reuse-values --set weatherAppImage.repository=${IMAGE_NAME} --set weatherAppImage.tag=build-${BUILD_NUMBER} hailyeah EKS/Helm/"
                 }
             }
 

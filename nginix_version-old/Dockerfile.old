@@ -2,8 +2,8 @@
 FROM ubuntu:latest AS build
 
 RUN apt update && apt install -y python3 python3-venv python3-pip
-RUN mkdir /Python
-WORKDIR /Python
+RUN mkdir /API_Project
+WORKDIR /API_Project
 
 # create a venv to store all dependencies for the project
 RUN python3 -m venv .venv  
@@ -11,12 +11,12 @@ RUN python3 -m venv .venv
 #RUN ./.venv/bin/activate && pip install gunicorn Flask requests
 RUN . .venv/bin/activate && pip install gunicorn Flask requests boto3 prometheus_flask_exporter
 
-COPY Python /Python
+COPY API_Project /API_Project
 
 #RUN useradd -ms /bin/bash hailyeah
 
 #USER hailyeah
-#WORKDIR /home/hailyeah/Python/
+#WORKDIR /home/hailyeah/API_Project/
 
 
 
@@ -25,12 +25,14 @@ FROM ubuntu
 
 RUN apt update -y && apt install -y nginx python3 
 
-COPY --from=build /Python /app
+COPY --from=build /API_Project /app
 
+COPY API_Project/ngnix_config_file.conf /etc/nginx/sites-enabled/default
 
-COPY run_gunicorn.sh /app/run_gunicorn.sh 
+COPY initiate_ngnix.sh /app/initiate_ngnix.sh 
 
+RUN chmod 544 /app/initiate_ngnix.sh 
 WORKDIR /app
-CMD ["bash", "run_gunicorn.sh"]
+CMD ["bash", "initiate_ngnix.sh"]
 
 

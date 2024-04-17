@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weatherapp-deployment
+  labels:
+    app: weatherapp
+spec:
+  replicas: {{ .Values.REPLICAS }}
+  selector:
+    matchLabels:
+      app: weatherapp
+  template:
+    metadata:
+      labels:
+        app: weatherapp
+    spec:
+      containers:
+        - name: weatherapp-cont
+          image: "{{ .Values.weatherAppImage.repository }}:{{ .Values.weatherAppImage.tag }}"
+          imagePullPolicy: {{ .Values.weatherAppImage.pullPolicy }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: BG_COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.bgColorConfigMap }}
+                  key: BG_COLOR
+#          volumeMounts:
+#            - name: ebs-volume
+#              mountPath: /app/search_history
+#      imagePullSecrets:
+#        - name: my-dockerhub-secret
+#      volumes:
+#        - name: ebs-volume
+#          persistentVolumeClaim:
+#            claimName: ebs-pvc
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0

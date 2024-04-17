@@ -7,7 +7,8 @@
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #e042f5;
+            background-color: {{ bg_color_code }};
+
             color: white;
             /*background-color: lime; */
         }
@@ -51,9 +52,9 @@
 </head>
 <body>
     <div id="weather-container">
-        <h1>Hail Yeah! The Maybe Best Mediocre Weather Forecast App!</h1>
+        <h1>Hail Yeah! The Second Best Weather Forecast App!</h1>
         <!-- Form for city input, sends POST request to '/city' -->
-        <form action="/city" method="post">
+        <form action="/hailyeah/city" method="post">
             <label for="city">Enter a city:</label>
             <input type="text" id="city" name="city"> <!-- Input field for city name -->
             <button type="submit">Get Weather</button> <!-- Submit button -->
@@ -79,7 +80,7 @@
                 {% endfor %}
             </div>
 
-        <form action="/save-data" method="post">
+        <form action="/hailyeah/save-data" method="post">
             <input type="hidden" name="city" value="{{ city }}">
             <input type="hidden" name="date" value="{{ data.daily.time }}">
             <input type="hidden" name="weather_emojis" value="{{ weather_emojis }}">
@@ -90,7 +91,9 @@
         </form>
 
         <!-- Download Button for the Image -->
-        <button onclick="window.location.href='/download-image'">Download Sky View Image</button>
+        <button onclick="window.location.href='/hailyeah/download-image'">Download Sky View Image</button>
+        <a href="/hailyeah/search-history" class="button">View Query History</a>
+
         <!-- <button onclick="window.location.href='/sava-data'">Save weekly data to DynamoDB</button> -->
 
         {% endif %}

@@ -64,14 +64,17 @@ pipeline {
         always {
             // Clean up Docker images
             script {
-                sh 'docker kill hailyeah'
+                // sh 'docker kill hailyeah'
+                sh 'echo PLACEHODER KILL CONTAINER'
                 }
             }
         success {
-            slackSend(channel: "#jenkins-updates", color: "good", message: "Build #${env.BUILD_NUMBER} successful!")
+            sh 'echo CHA-CHAING! Success!'
+            // slackSend(channel: "#jenkins-updates", color: "good", message: "Build #${env.BUILD_NUMBER} successful!")
         }
         failure {
-            slackSend(channel: "#jenkins-updates", color: "danger", message: "Build #${env.BUILD_NUMBER} failed successfully!")
+            sh 'echo Crap, pipeline failed!'
+            // slackSend(channel: "#jenkins-updates", color: "danger", message: "Build #${env.BUILD_NUMBER} failed successfully!")
         }
     }
 }

@@ -58,7 +58,7 @@ pipeline {
                 steps {
                     withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS_ID, passwordVariable: 'GITHUB_USER', usernameVariable: 'Unused')]) {
                         script{
-                            dir('/home/jenkins/workspace'){
+                            dir('/home/ubuntu/jenkins/workspace'){
 
                                 sh "git clone https://${GITHUB_USER}@github.com/${CD_REPO}.git"
                                 dir("/home/ubuntu/jenkins/workspace/${env.JOB_BASE_NAME}"){

@@ -71,7 +71,7 @@ pipeline {
                                     sh 'git add .'
                                     sh 'git config --global user.email JenkinsAgent@nomail.com'
                                     sh 'git config --global user.name JenkinsAgent'
-                                    sh """git commit -m "Jenkins image update tag to: ${BUILD_NUMBER}"""
+                                    sh "git commit -m \"Jenkins image update tag to: ${BUILD_NUMBER}\""
                                     sh "git push"
                                 }
                                 

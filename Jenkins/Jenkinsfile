@@ -61,12 +61,12 @@ pipeline {
                             dir('/home/ubuntu/jenkins/workspace'){
 
                                 sh "git clone https://${GITHUB_USER}@github.com/${CD_REPO}.git"
-                                dir("/home/ubuntu/jenkins/workspace/"){
+                                dir("/home/ubuntu/jenkins/workspace/${CD_REPO_NAME}/"){
                                     sh "pwd"
                                     sh "ls"
                                     sh "ls ${CD_REPO_NAME} || true"
-                                    sh "chmod +x ./${CD_REPO_NAME}/update_tag.sh"
-                                    sh "./${CD_REPO_NAME}/update_tag.sh build-${BUILD_NUMBER}"
+                                    sh "chmod +x ./update_tag.sh"
+                                    sh "./update_tag.sh build-${BUILD_NUMBER}"
 
                                     sh 'git add .'
                                     sh 'git config --global user.email JenkinsAgent@nomail.com'

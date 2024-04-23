@@ -16,6 +16,7 @@ pipeline {
         CD_REPO = "Gilibee-goode/Hailyeah-ArgoCD"
         CD_REPO_NAME = "Hailyeah-ArgoCD"
         DOCKER_IMAGE_VERSION = "0.0.1"
+				STUFF = "1"
     }
     stages {
         stage('Build Docker Image') {

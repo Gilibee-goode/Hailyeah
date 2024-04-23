@@ -15,8 +15,8 @@ pipeline {
             GITHUB_CREDENTIALS_ID = "Github_user"
             CD_REPO = "Gilibee-goode/Hailyeah-ArgoCD"
             CD_REPO_NAME = "Hailyeah-ArgoCD"
-            DOCKER_IMAGE_VERSION = "0.0.1"
-                    STUFF = "1"
+            // DOCKER_IMAGE_VERSION = "0.0.1"
+            // STUFF = "1"
         }
         stages {
             stage('Build Docker Image') {
@@ -63,7 +63,7 @@ pipeline {
                                 sh "git clone https://${GITHUB_USER}@github.com/${CD_REPO}.git"
                                 dir("/home/jenkins/workspace/${Hailyeah-ArgoCD}"){
                                     sh 'chmod +x ./update_tag.sh'
-                                    sh "./update_tag.sh ${DOCKER_IMAGE_VERSION}.${BUILD_NUMBER}"
+                                    sh "./update_tag.sh build-${BUILD_NUMBER}"
 
                                     sh 'git add .'
                                     sh 'git config --global user.email JenkinsAgent@nomail.com'

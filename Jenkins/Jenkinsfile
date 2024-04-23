@@ -56,7 +56,7 @@ pipeline {
 
             stage('Update ArgoCD Deploy Repository') {
                 steps {
-                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS_ID, passwordVariable: 'GITHUB_USER')]) { //, usernameVariable: 'Unused')]) {
+                    withCredentials([usernamePassword(credentialsId: GITHUB_CREDENTIALS_ID, passwordVariable: 'GITHUB_USER', usernameVariable: 'Unused')]) {
                         script{
                             dir('/home/jenkins/workspace'){
 

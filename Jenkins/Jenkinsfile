@@ -115,7 +115,7 @@ pipeline {
                     script {
                         // sh 'docker kill hailyeah'
                         sh 'echo PLACEHODER KILL CONTAINER'
-                        sh "rm -rf /home/ubuntu/jenkins/workspace/${env.JOB_BASE_NAME}/${CD_REPO_NAME}"
+                        sh "rm -rf /home/ubuntu/jenkins/workspace/${CD_REPO_NAME}"
                         }
                     }
                 success {

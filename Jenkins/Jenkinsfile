@@ -63,6 +63,8 @@ pipeline {
                                 sh "git clone https://${GITHUB_USER}@github.com/${CD_REPO}.git"
                                 dir("/home/ubuntu/jenkins/workspace/"){
                                     sh "pwd"
+                                    sh "ls"
+                                    sh "ls ${CD_REPO_NAME} || true"
                                     sh "chmod +x ./${CD_REPO_NAME}/update_tag.sh"
                                     sh "./${CD_REPO_NAME}/update_tag.sh build-${BUILD_NUMBER}"
 
@@ -115,7 +117,7 @@ pipeline {
                     script {
                         // sh 'docker kill hailyeah'
                         sh 'echo PLACEHODER KILL CONTAINER'
-                        sh "rm -rf /home/ubuntu/jenkins/workspace/${CD_REPO_NAME}"
+                        // sh "rm -rf /home/ubuntu/jenkins/workspace/${CD_REPO_NAME}"
                         }
                     }
                 success {

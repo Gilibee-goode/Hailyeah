@@ -61,7 +61,7 @@ pipeline {
                             dir('/home/jenkins/workspace'){
 
                                 sh "git clone https://${GITHUB_USER}@github.com/${CD_REPO}.git"
-                                dir("/home/jenkins/workspace/${Hailyeah-ArgoCD}"){
+                                dir("/home/ubuntu/jenkins/workspace/${env.JOB_BASE_NAME}"){
                                     sh 'chmod +x ./update_tag.sh'
                                     sh "./update_tag.sh build-${BUILD_NUMBER}"
 

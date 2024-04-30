@@ -19,7 +19,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /hailyeah/*
+          - path: /hailyeah*
             pathType: ImplementationSpecific
             backend:
               service:

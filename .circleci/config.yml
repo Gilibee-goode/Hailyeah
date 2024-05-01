@@ -11,11 +11,11 @@ jobs:
       - run:  # Step to build the Docker image
           name: Build Docker Image
           command: |
-            docker build -t $DOCKERHUB_USERNAME/${IMAGE_NAME}:circle-${CIRCLE_BUILD_NUM} .
+            docker build -t ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:circle-${CIRCLE_BUILD_NUM} .
       - run:
           name: Test
           command: |
-            docker run --rm -d -p 8000:80 --name app-test ${IMAGE_NAME}
+            docker run --rm -d -p 8000:80 --name app-test ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:circle-${CIRCLE_BUILD_NUM}
             python3 -m pip install requests
             python3 Python/test_reachable.py
             docker kill app-test

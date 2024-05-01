@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Test
           command: |
-            docker run --rm -d -p 8000:80 --name app-test app-test
+            docker run --rm -d -p 8000:80 --name app-test ${IMAGE_NAME}
             python3 -m pip install requests
             python3 Python/test_reachable.py
             docker kill app-test

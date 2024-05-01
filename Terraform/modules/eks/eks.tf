@@ -14,7 +14,8 @@ locals {
 
 
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
+  # source  = "terraform-aws-modules/eks/aws"
+  source = "https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=afadb14e44d1cdbd852dbae815be377c4034e82a"
   version = "20.8.5"
 
   cluster_name                   = var.cluster_name
@@ -94,7 +95,8 @@ provider "helm" {
 }
 
 module "aws_load_balancer_controller_irsa_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  # source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  source  = "https://github.com/terraform-aws-modules/terraform-aws-iam/tree/v5.39.0/modules/iam-role-for-service-accounts-eks?ref=f9d5e28996ca282af4c09cb97f6291cf77ac03ea"
   # version = "5.3.1"
   version = "~> 5.0"
 

@@ -10,12 +10,12 @@ jobs:
       - run:  # Step to build the Docker image
           name: Build Docker Image
           command: |
-            docker build -t $DOCKERHUB_USERNAME/hailyeah:${CIRCLE_SHA1} .
+            docker build -t $DOCKERHUB_USERNAME/hailyeah:circle-${CIRCLE_BUILD_NUM} .
       - run:  # Step to log in to DockerHub and push the image
           name: Publish Docker Image
           command: |
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
-            docker push $DOCKERHUB_USERNAME/hailyeah:${CIRCLE_SHA1}
+            docker push $DOCKERHUB_USERNAME/hailyeah:circle-${CIRCLE_BUILD_NUM}
 
 workflows:
   version: 2

@@ -15,8 +15,8 @@ locals {
 
 module "eks" {
   # source  = "terraform-aws-modules/eks/aws"
-  source = "https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=afadb14e44d1cdbd852dbae815be377c4034e82a"
-  version = "20.8.5"
+  # version = "20.8.5"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=afadb14e44d1cdbd852dbae815be377c4034e82a"
 
   cluster_name                   = var.cluster_name
 
@@ -58,7 +58,7 @@ module "eks" {
       max_size     = 2
       desired_size = 1
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.medium"]
       # capacity_type  = "SPOT"
       capacity_type  = "ON_DEMAND"
 
@@ -96,9 +96,9 @@ provider "helm" {
 
 module "aws_load_balancer_controller_irsa_role" {
   # source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  source  = "https://github.com/terraform-aws-modules/terraform-aws-iam/tree/v5.39.0/modules/iam-role-for-service-accounts-eks?ref=f9d5e28996ca282af4c09cb97f6291cf77ac03ea"
   # version = "5.3.1"
-  version = "~> 5.0"
+  # version = "~> 5.0"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-iam.git//modules/iam-role-for-service-accounts-eks?ref=39e42e1f847afe5fd1c1c98c64871817e37e33ca"
 
   role_name = "aws-load-balancer-controller"
 
@@ -148,21 +148,29 @@ resource "helm_release" "aws_load_balancer_controller" {
 
 
 
-resource "helm_release" "my_local_chart" {
-  name      = "hailyeah"
-  namespace = "default"
-  chart     = "./Helm"
+# resource "helm_release" "my_local_chart" {
+#   name      = "hailyeah"
+#   namespace = "default"
+#   chart     = "../EKS/Helm"
 
-  # set {
-  #   name  = "key"
-  #   value = "value"
-  # }
+#   # set {
+#   #   name  = "key"
+#   #   value = "value"
+#   # }
 
-  # # OR input a yaml file
-  # values = [
-  #   file("values.yaml")
-  # ]
+#   # # OR input a yaml file
+#   # values = [
+#   #   file("values.yaml")
+#   # ]
 
-  # depends_on = [module.eks]
+#   depends_on = [module.eks] # should be dependent on "helm_release" "aws_load_balancer_controller
+# }
+
+resource "null_resource" "update_kubeconfig" {
+  depends_on = [module.eks]
+
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.region}" 
+  }
 }
 

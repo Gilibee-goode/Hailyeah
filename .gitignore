@@ -1,1 +1,38 @@
-__pycache__/
+# # Ignore everything
+# *
+
+# # But not these files...
+
+# !.gitignore
+# !*.c
+# !*.h
+# !*.sh
+# !*.py
+# !*.md
+# !Makefile
+# !Jenkinsfile
+# !Dockerfile
+# !docker-compose.yaml
+# !*.conf
+# !*.html
+# !*.yaml
+# !*.yml
+# !*.jpg
+# !*.txt
+# !*.go
+# !*.tf
+
+# # don't ignore files even if they are in subdirectories
+# !*/
+
+# Specifically ignore this sections:
+Terraform/.terraform/
+Terraform/.terraform*
+Terraform/terraform*
+
+
+# if the files to be tracked are in subdirectories
+#!*/a/b/file1.txt
+#!*/a/b/c/*
+
+

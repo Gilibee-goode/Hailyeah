@@ -1,8 +1,7 @@
-# variable "region" {
-#   description = "Region to use in aws"
-#   type        = string
-#   # default     = var.region
-# }
+variable "region" {
+  description = "Region to use in aws"
+  type        = string
+}
 
 variable "iam_role_name" {
   description = "The name of the IAM role"

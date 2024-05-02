@@ -19,5 +19,9 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.6.0"
     }
+    argocd = {
+      source  = "jojand/argocd"
+      version = ">= 2.3.2"
+    }
   }
 }

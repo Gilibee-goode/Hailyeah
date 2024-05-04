@@ -41,7 +41,7 @@ jobs:
 
   test-terratest:
       docker:
-        - image: cimg/cimg/go
+        - image: cimg/go:1.22.2
       steps:
         - checkout
         - run:

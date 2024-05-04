@@ -45,6 +45,16 @@ jobs:
       steps:
         - checkout
         - run:
+            # install_tofu: &install_tofu
+            name: Install OpenTofu
+            command: |
+              curl -L "https://github.com/opentofu/opentofu/releases/download/v1.6.0-alpha1/tofu_1.6.0-alpha1_linux_amd64.zip" -o tofu.zip
+              unzip -o tofu.zip
+              sudo install -m 0755 tofu /usr/local/bin/tofu
+              # rm -rf tofu
+              # rm -rf tofu.zip
+              tofu --version
+        - run:
             name: Setup Terratest
             command: |
               cd Terraform/test

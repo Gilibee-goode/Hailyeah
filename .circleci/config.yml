@@ -67,7 +67,7 @@ workflows:
                   - build-and-push  # Ensures this job runs only after the build-and-push job
       - test-terratest:
                 requires:
-                  - build-and-push  # Ensures this job runs only after the build-and-push job
+                  - test-checkov  # Ensures this job runs only after the build-and-push job
 
                 
 

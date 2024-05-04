@@ -25,7 +25,7 @@ jobs:
             echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
             docker push $DOCKERHUB_USERNAME/${IMAGE_NAME}:circle-${CIRCLE_BUILD_NUM}
 
-  checkov-terraform:
+  test-checkov:
       docker:
         - image: cimg/python:3.12.3
       steps:
@@ -39,14 +39,37 @@ jobs:
             command: |
               checkov -d ./Terraform  # Scans all Terraform files in the current directory
 
+  test-terratest:
+      docker:
+        - image: cimg/cimg/go:1.22.2
+      steps:
+        - checkout
+        - run:
+            name: Setup Terratest
+            command: |
+              cd Terraform/test
+              go mod init tf_test.go
+              go mod tidy
+        - run:
+            name: Run Terratest
+            command: |
+              cd Terraform/test
+              go test -v -timeout 30m
+
+
 workflows:
   version: 2
   Hailyeah-build-test-deploy:
     jobs:
       - build-and-push
-      - checkov-terraform:
+      - test-checkov:
                 requires:
                   - build-and-push  # Ensures this job runs only after the build-and-push job
+      - test-terratest:
+                requires:
+                  - build-and-push  # Ensures this job runs only after the build-and-push job
+
+                
 
 # version: 2.1
 # # orbs:

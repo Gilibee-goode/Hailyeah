@@ -26,9 +26,9 @@
 # !*/
 
 # Specifically ignore this sections:
-Terraform/.terraform/
-Terraform/.terraform*
-Terraform/terraform*
+/Terraform/.terraform/
+/Terraform/.terraform*
+/Terraform/terraform*
 
 
 # if the files to be tracked are in subdirectories

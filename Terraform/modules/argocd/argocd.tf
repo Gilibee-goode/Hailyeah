@@ -34,8 +34,9 @@ resource "helm_release" "argocd" {
 # Deploy ArgoCD Application
 
 module "argocd_application" {
-  source  = "project-octal/argocd-application/kubernetes"
-  version = "~> 2.0.0"
+  source = "git::https://github.com/jojand/terraform-provider-argocd.git?ref=3125bac7008fdd1a67597c3c9e9b77d965e4d413"
+  # source  = "project-octal/argocd-application/kubernetes"
+  # version = "~> 2.0.0"
 
   argocd_namespace    = "argocd"
   destination_server  = "https://kubernetes.default.svc"

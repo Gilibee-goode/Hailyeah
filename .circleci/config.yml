@@ -41,7 +41,24 @@ jobs:
 
   test-terratest:
       docker:
-        - image: cimg/cimg/go:1.22.2
+        - image: cimg/cimg/go
+      steps:
+        - checkout
+        - run:
+            name: Setup Terratest
+            command: |
+              cd Terraform/test
+              go mod init tf_test.go
+              go mod tidy
+        - run:
+            name: Run Terratest
+            command: |
+              cd Terraform/test
+              go test -v -timeout 30m
+
+  run-terraform:
+      docker:
+        - image: cimg/aws:2024.03
       steps:
         - checkout
         - run:

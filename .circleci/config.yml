@@ -54,6 +54,8 @@ jobs:
               # rm -rf tofu
               # rm -rf tofu.zip
               tofu --version
+              cd Terraform/test
+              tofu init
         - run:
             name: Setup Terratest
             command: |

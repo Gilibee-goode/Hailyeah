@@ -14,8 +14,9 @@ locals {
 
 
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "20.8.5"
+  # source  = "terraform-aws-modules/eks/aws"
+  # version = "20.8.5"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-eks.git?ref=afadb14e44d1cdbd852dbae815be377c4034e82a"
 
   cluster_name                   = var.cluster_name
 
@@ -57,7 +58,7 @@ module "eks" {
       max_size     = 2
       desired_size = 1
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.medium"]
       # capacity_type  = "SPOT"
       capacity_type  = "ON_DEMAND"
 
@@ -72,7 +73,7 @@ module "eks" {
 }
 
 
-
+# -----------------------------------------------------------------------
 
 # https://github.com/terraform-aws-modules/terraform-aws-eks/issues/2009
 data "aws_eks_cluster" "default" {
@@ -94,9 +95,10 @@ provider "helm" {
 }
 
 module "aws_load_balancer_controller_irsa_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  # source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   # version = "5.3.1"
-  version = "~> 5.0"
+  # version = "~> 5.0"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-iam.git//modules/iam-role-for-service-accounts-eks?ref=39e42e1f847afe5fd1c1c98c64871817e37e33ca"
 
   role_name = "aws-load-balancer-controller"
 
@@ -146,21 +148,17 @@ resource "helm_release" "aws_load_balancer_controller" {
 
 
 
-resource "helm_release" "my_local_chart" {
-  name      = "hailyeah"
-  namespace = "default"
-  chart     = "./Helm"
 
-  # set {
-  #   name  = "key"
-  #   value = "value"
-  # }
 
-  # # OR input a yaml file
-  # values = [
-  #   file("values.yaml")
-  # ]
 
-  # depends_on = [module.eks]
+# -----------------------------------------------------------------------
+
+
+resource "null_resource" "update_kubeconfig" {
+  depends_on = [module.eks]
+
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --name ${module.eks.cluster_name} --region ${var.region}" 
+  }
 }
 

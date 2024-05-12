@@ -1,14 +1,18 @@
-# variable "region" {
-#   description = "Region to use in aws"
-#   type        = string
-#   # default     = var.region
-# }
+variable "region" {
+  description = "Region to use in aws"
+  type        = string
+}
 
 variable "iam_role_name" {
   description = "The name of the IAM role"
   type        = string
   default     = "aws-load-balancer-controller"
 }
+
+# variable "cluster_name" {
+#     description = "cluster name"
+#     type = string    
+# }
 
 # variable "name" {
 #   description = "module.eks.cluster_id"

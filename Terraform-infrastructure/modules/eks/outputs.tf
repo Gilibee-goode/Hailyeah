@@ -1,6 +1,19 @@
 ################################################################################
 # Cluster
 ################################################################################
+# output "cluster_endpoint" {
+#   value = module.eks.cluster_endpoint
+# }
+
+# output "cluster_ca_certificate" {
+#   value = module.eks.cluster_ca_certificate
+# }
+
+# output "kubeconfig" {
+#   value = module.eks.kubeconfig
+# }
+
+
 
 output "cluster_arn" {
   description = "The Amazon Resource Name (ARN) of the cluster"

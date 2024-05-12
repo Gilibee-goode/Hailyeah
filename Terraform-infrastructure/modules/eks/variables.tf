@@ -9,6 +9,11 @@ variable "iam_role_name" {
   default     = "aws-load-balancer-controller"
 }
 
+# variable "cluster_name" {
+#     description = "cluster name"
+#     type = string    
+# }
+
 # variable "name" {
 #   description = "module.eks.cluster_id"
 #   type        = string

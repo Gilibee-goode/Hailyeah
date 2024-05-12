@@ -73,7 +73,7 @@ module "eks" {
 }
 
 
-
+# -----------------------------------------------------------------------
 
 # https://github.com/terraform-aws-modules/terraform-aws-eks/issues/2009
 data "aws_eks_cluster" "default" {
@@ -148,23 +148,11 @@ resource "helm_release" "aws_load_balancer_controller" {
 
 
 
-# resource "helm_release" "my_local_chart" {
-#   name      = "hailyeah"
-#   namespace = "default"
-#   chart     = "../EKS/Helm"
 
-#   # set {
-#   #   name  = "key"
-#   #   value = "value"
-#   # }
 
-#   # # OR input a yaml file
-#   # values = [
-#   #   file("values.yaml")
-#   # ]
 
-#   depends_on = [module.eks] # should be dependent on "helm_release" "aws_load_balancer_controller
-# }
+# -----------------------------------------------------------------------
+
 
 resource "null_resource" "update_kubeconfig" {
   depends_on = [module.eks]

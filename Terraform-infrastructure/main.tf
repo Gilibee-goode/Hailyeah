@@ -15,12 +15,12 @@ module "eks" {
   # depends_on = [module.vpc]
 }
 
-module "argocd" {
-  source = "./modules/argocd"
-  cluster_name = module.eks.cluster_name
+# module "argocd" {
+#   source = "./modules/argocd"
+#   cluster_name = module.eks.cluster_name
 
-  # depends_on = [module.eks]
-}
+#   depends_on = [module.eks]
+# }
 
 
 # # Set up the IAM OIDC module
